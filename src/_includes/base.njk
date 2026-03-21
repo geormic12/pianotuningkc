@@ -46,7 +46,7 @@
     gtag('config', '{{ site.googleAdsId }}');
   </script>
 
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="{{ pathPrefix }}css/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -54,17 +54,17 @@
 <body>
   <header class="site-header">
     <div class="header-inner">
-      <a href="/" class="logo">Piano Tuning KC</a>
+      <a href="{{ pathPrefix }}" class="logo">Piano Tuning KC</a>
       <nav class="main-nav">
         <button class="nav-toggle" aria-label="Toggle navigation">
           <span></span><span></span><span></span>
         </button>
         <ul class="nav-links">
-          <li><a href="/" {% if page.url == "/" %}class="active"{% endif %}>Home</a></li>
-          <li><a href="/appointments/" {% if page.url == "/appointments/" %}class="active"{% endif %}>Appointments</a></li>
-          <li><a href="/justpianothings/" {% if page.url == "/justpianothings/" %}class="active"{% endif %}>Just Piano Things</a></li>
-          <li><a href="/jake/" {% if page.url == "/jake/" %}class="active"{% endif %}>About Jake</a></li>
-          <li><a href="/appointments/" class="nav-cta">Book Now</a></li>
+          <li><a href="{{ pathPrefix }}" {% if page.url == "/" %}class="active"{% endif %}>Home</a></li>
+          <li><a href="{{ pathPrefix }}appointments/" {% if page.url == "/appointments/" %}class="active"{% endif %}>Appointments</a></li>
+          <li><a href="{{ pathPrefix }}justpianothings/" {% if page.url == "/justpianothings/" %}class="active"{% endif %}>Just Piano Things</a></li>
+          <li><a href="{{ pathPrefix }}jake/" {% if page.url == "/jake/" %}class="active"{% endif %}>About Jake</a></li>
+          <li><a href="{{ pathPrefix }}appointments/" class="nav-cta">Book Now</a></li>
         </ul>
       </nav>
     </div>
