@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="#1a1a1a">
+  <!-- Grand piano body -->
+  <path d="M20,70 Q20,30 60,25 Q100,20 105,50 L105,75 Q105,80 100,80 L25,80 Q20,80 20,75 Z"/>
+  <!-- Lid prop -->
+  <line x1="60" y1="25" x2="55" y2="15" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M20,28 Q20,20 30,18 L55,15 L60,25 Q40,28 20,35 Z" opacity="0.7"/>
+  <!-- Legs -->
+  <rect x="25" y="80" width="5" height="25" rx="1"/>
+  <rect x="95" y="80" width="5" height="25" rx="1"/>
+  <rect x="60" y="80" width="5" height="25" rx="1"/>
+  <!-- Keys hint -->
+  <rect x="22" y="68" width="50" height="8" rx="1" fill="#fff" opacity="0.3"/>
+</svg>

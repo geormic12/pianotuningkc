@@ -1,0 +1,28 @@
+---
+layout: base.njk
+pageTitle: Just Piano Things
+description: Piano tips, guides, and insights from Jake Wells — your Kansas City piano tuner. Learn about tuning, buying pianos, and keeping your instrument in top shape.
+permalink: /justpianothings/
+---
+
+<section class="page-hero">
+  <h1>Just Piano Things</h1>
+  <p class="page-subtitle">Tips, guides, and insights from your local piano tuner</p>
+</section>
+
+<section class="blog-listing">
+  {% for post in collections.blog %}
+  <article class="blog-card">
+    <a href="{{ post.url }}">
+      <h2>{{ post.data.title }}</h2>
+      <div class="blog-card-meta">
+        <time>{{ post.date | readableDate }}</time>
+        <span class="blog-card-author">{{ post.data.author or site.owner }}</span>
+      </div>
+      {% if post.data.excerpt %}
+      <p class="blog-card-excerpt">{{ post.data.excerpt }}</p>
+      {% endif %}
+    </a>
+  </article>
+  {% endfor %}
+</section>

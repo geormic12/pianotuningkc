@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ pageTitle or title }} | {{ site.title }}</title>
+  <meta name="description" content="{{ description or site.description }}">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="{{ pageTitle or title }} | {{ site.title }}">
+  <meta property="og:description" content="{{ description or site.description }}">
+  <meta property="og:type" content="{{ 'article' if layout == 'post' else 'website' }}">
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "{{ site.title }}",
+    "description": "{{ site.description }}",
+    "url": "{{ site.url }}",
+    "telephone": "{{ site.phone }}",
+    "email": "{{ site.email }}",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Kansas City",
+      "addressRegion": "MO",
+      "addressCountry": "US"
+    },
+    "areaServed": [
+      "Kansas City", "Overland Park", "Olathe", "Lee's Summit",
+      "Shawnee", "Lenexa", "Prairie Village", "Liberty", "Independence"
+    ],
+    "priceRange": "$$",
+    "image": "{{ site.url }}/images/jake-tuning.jpg"
+  }
+  </script>
+
+  <!-- Google Ads -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.googleAdsId }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '{{ site.googleAdsId }}');
+  </script>
+
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/" class="logo">Piano Tuning KC</a>
+      <nav class="main-nav">
+        <button class="nav-toggle" aria-label="Toggle navigation">
+          <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links">
+          <li><a href="/" {% if page.url == "/" %}class="active"{% endif %}>Home</a></li>
+          <li><a href="/appointments/" {% if page.url == "/appointments/" %}class="active"{% endif %}>Appointments</a></li>
+          <li><a href="/justpianothings/" {% if page.url == "/justpianothings/" %}class="active"{% endif %}>Just Piano Things</a></li>
+          <li><a href="/jake/" {% if page.url == "/jake/" %}class="active"{% endif %}>About Jake</a></li>
+          <li><a href="/appointments/" class="nav-cta">Book Now</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    {{ content | safe }}
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <h4>Piano Tuning KC</h4>
+        <p>by {{ site.owner }}</p>
+      </div>
+      <div class="footer-contact">
+        <a href="mailto:{{ site.email }}">{{ site.email }}</a>
+        <a href="tel:{{ site.phonePlain }}">{{ site.phone }}</a>
+        <a href="sms:{{ site.phonePlain }}">Text Jake</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelector('.nav-toggle').addEventListener('click', function() {
+      document.querySelector('.nav-links').classList.toggle('open');
+      this.classList.toggle('open');
+    });
+  </script>
+</body>
+</html>

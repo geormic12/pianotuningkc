@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="#1a1a1a">
+  <!-- Upright piano silhouette -->
+  <rect x="25" y="15" width="70" height="75" rx="2"/>
+  <rect x="22" y="85" width="76" height="8" rx="1"/>
+  <!-- Legs -->
+  <rect x="28" y="93" width="6" height="15" rx="1"/>
+  <rect x="86" y="93" width="6" height="15" rx="1"/>
+  <!-- Keys hint -->
+  <rect x="30" y="70" width="60" height="10" rx="1" fill="#fff" opacity="0.3"/>
+  <!-- Bench -->
+  <rect x="15" y="105" width="35" height="4" rx="1" opacity="0.6"/>
+  <rect x="18" y="109" width="4" height="6" rx="1" opacity="0.6"/>
+  <rect x="43" y="109" width="4" height="6" rx="1" opacity="0.6"/>
+</svg>
