@@ -7,21 +7,23 @@ permalink: /justpianothings/
 
 <section class="page-hero">
   <h1>Just Piano Things</h1>
-  <p class="page-subtitle">Tips, guides, and insights from your local piano tuner</p>
 </section>
 
 <section class="blog-listing">
   {% for post in collections.blog %}
   <article class="blog-card">
     <a href="{{ post.url }}">
-      <h2>{{ post.data.title }}</h2>
+      {% if post.data.categories %}
+      <div class="blog-card-categories">{{ post.data.categories | join(", ") }}</div>
+      {% endif %}
       <div class="blog-card-meta">
         <time>{{ post.date | readableDate }}</time>
-        <span class="blog-card-author">{{ post.data.author or site.owner }}</span>
       </div>
+      <h2>{{ post.data.title }}</h2>
       {% if post.data.excerpt %}
       <p class="blog-card-excerpt">{{ post.data.excerpt }}</p>
       {% endif %}
+      <span class="read-more">Read More</span>
     </a>
   </article>
   {% endfor %}

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Piano Tuning KC — Ad Performance Dashboard</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    background: #f1f3f4;
+    color: #202124;
+    min-height: 100vh;
+  }
+  header {
+    background: #fff;
+    border-bottom: 1px solid #dadce0;
+    padding: 16px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  header h1 {
+    font-size: 20px;
+    font-weight: 500;
+    color: #202124;
+  }
+  header h1 span { color: #1a73e8; }
+  .date-selector {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    border: 1px solid #dadce0;
+    border-radius: 4px;
+    padding: 8px 14px;
+    font-size: 14px;
+    color: #3c4043;
+    cursor: default;
+  }
+  .date-selector svg { width: 16px; height: 16px; fill: #5f6368; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+  .toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .toolbar h2 { font-size: 15px; font-weight: 500; color: #5f6368; }
+
+  /* Summary cards */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(60,64,67,0.12), 0 1px 2px rgba(60,64,67,0.06);
+  }
+  .card .label {
+    font-size: 12px;
+    color: #5f6368;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+  .card .value {
+    font-size: 26px;
+    font-weight: 600;
+    color: #202124;
+  }
+  .card .value.blue { color: #1a73e8; }
+  .card .value.green { color: #1e8e3e; }
+
+  /* Tables */
+  .panel {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(60,64,67,0.12), 0 1px 2px rgba(60,64,67,0.06);
+    margin-bottom: 24px;
+    overflow: hidden;
+  }
+  .panel-header {
+    padding: 16px 20px;
+    font-size: 15px;
+    font-weight: 500;
+    border-bottom: 1px solid #e8eaed;
+    color: #202124;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  th {
+    text-align: left;
+    padding: 12px 20px;
+    font-weight: 500;
+    color: #5f6368;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e8eaed;
+  }
+  th:not(:first-child), td:not(:first-child) { text-align: right; }
+  td {
+    padding: 14px 20px;
+    border-bottom: 1px solid #f1f3f4;
+    color: #3c4043;
+  }
+  tr:last-child td { border-bottom: none; }
+  .status {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+  }
+  .status.paused { background: #fce8e6; color: #c5221f; }
+  .status.ended { background: #e8eaed; color: #5f6368; }
+
+  footer {
+    text-align: center;
+    padding: 24px;
+    font-size: 12px;
+    color: #80868b;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1><span>Piano Tuning KC</span> — Ad Performance Dashboard</h1>
+  <div class="date-selector">
+    <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
+    Last 30 Days
+    <svg viewBox="0 0 24 24" style="width:12px;height:12px"><path d="M7 10l5 5 5-5z"/></svg>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="toolbar">
+    <h2>Account Overview</h2>
+  </div>
+
+  <!-- Summary Cards -->
+  <div class="cards">
+    <div class="card">
+      <div class="label">Total Spend</div>
+      <div class="value">$212.77</div>
+    </div>
+    <div class="card">
+      <div class="label">Clicks</div>
+      <div class="value blue">104</div>
+    </div>
+    <div class="card">
+      <div class="label">Impressions</div>
+      <div class="value">1,526</div>
+    </div>
+    <div class="card">
+      <div class="label">Conversions</div>
+      <div class="value green">9</div>
+    </div>
+    <div class="card">
+      <div class="label">Cost / Conversion</div>
+      <div class="value">$23.64</div>
+    </div>
+    <div class="card">
+      <div class="label">CTR</div>
+      <div class="value blue">6.82%</div>
+    </div>
+  </div>
+
+  <!-- Campaign Performance Table -->
+  <div class="panel">
+    <div class="panel-header">Campaign Performance</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Campaign</th>
+          <th>Status</th>
+          <th>Clicks</th>
+          <th>Impressions</th>
+          <th>Cost</th>
+          <th>Conversions</th>
+          <th>CPC</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Piano Tuning KC</td>
+          <td><span class="status paused">Paused</span></td>
+          <td>104</td>
+          <td>1,526</td>
+          <td>$212.77</td>
+          <td>9</td>
+          <td>$2.05</td>
+        </tr>
+        <tr>
+          <td>Piano Tuning by Jake Wells</td>
+          <td><span class="status ended">Ended</span></td>
+          <td>124</td>
+          <td>1,205</td>
+          <td>$945.99</td>
+          <td>2</td>
+          <td>$7.63</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Top Keywords Table -->
+  <div class="panel">
+    <div class="panel-header">Top Keywords</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Keyword</th>
+          <th>Match Type</th>
+          <th>Clicks</th>
+          <th>Impressions</th>
+          <th>CTR</th>
+          <th>Avg. CPC</th>
+          <th>Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>piano tuning kansas city</td>
+          <td>Phrase</td>
+          <td>38</td>
+          <td>412</td>
+          <td>9.22%</td>
+          <td>$1.87</td>
+          <td>$71.06</td>
+        </tr>
+        <tr>
+          <td>piano tuner near me</td>
+          <td>Broad</td>
+          <td>29</td>
+          <td>385</td>
+          <td>7.53%</td>
+          <td>$2.14</td>
+          <td>$62.06</td>
+        </tr>
+        <tr>
+          <td>piano tuning kc</td>
+          <td>Exact</td>
+          <td>21</td>
+          <td>198</td>
+          <td>10.61%</td>
+          <td>$1.62</td>
+          <td>$34.02</td>
+        </tr>
+        <tr>
+          <td>piano tuning overland park</td>
+          <td>Phrase</td>
+          <td>9</td>
+          <td>287</td>
+          <td>3.14%</td>
+          <td>$2.41</td>
+          <td>$21.69</td>
+        </tr>
+        <tr>
+          <td>tune my piano</td>
+          <td>Broad</td>
+          <td>7</td>
+          <td>244</td>
+          <td>2.87%</td>
+          <td>$3.42</td>
+          <td>$23.94</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<footer>Internal use only — Piano Tuning KC</footer>
+
+</body>
+</html>

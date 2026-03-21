@@ -4,3 +4,6 @@ _site/
 *.log
 reference/
 site-audit.txt
+google-ads.yaml
+*.credentials
+.env
