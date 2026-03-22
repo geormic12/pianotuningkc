@@ -352,6 +352,165 @@
       font-weight: 500;
     }
 
+    /* About section */
+    .about-section {
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+    }
+
+    .about-photo-wrapper {
+      margin-bottom: 1.5rem;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .about-photo {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .about-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 400;
+      margin-bottom: 1rem;
+    }
+
+    .about-section p {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+
+    .tagline-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      margin-top: 0.5rem;
+    }
+
+    /* Press section */
+    .press-section {
+      margin-top: 2.5rem;
+      text-align: center;
+    }
+
+    .press-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+    }
+
+    .press-logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .press-logos img {
+      height: 36px;
+      width: auto;
+      object-fit: contain;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .press-logos img:hover {
+      opacity: 1;
+    }
+
+    /* Services detail */
+    .services-detail {
+      margin-top: 2.5rem;
+    }
+
+    .services-detail h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      margin-bottom: 1rem;
+    }
+
+    .service-detail-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .service-detail-card h4 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      color: var(--accent);
+    }
+
+    .service-detail-card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Bottom photo + quote */
+    .bottom-photo-section {
+      margin-top: 2.5rem;
+      text-align: center;
+    }
+
+    .bottom-portrait {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 1rem;
+      border: 3px solid var(--border);
+    }
+
+    .bottom-photo-section blockquote {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-style: italic;
+      line-height: 1.6;
+      color: var(--text-muted);
+      border: none;
+      padding: 0;
+    }
+
+    /* Footer updates */
+    .footer h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 400;
+      margin-bottom: 0.15rem;
+    }
+
+    .footer-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-links a {
+      font-size: 0.85rem;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
     /* Wireframe note */
     .wireframe-note {
       background: #FFF3CD;
@@ -408,14 +567,14 @@
         <!-- Service selection -->
         <div class="service-options">
           <div class="service-option selected" onclick="selectService(this)">
+            <div class="service-name">Full Service</div>
+            <div class="service-detail">3 hours &middot; Tune, Clean, Adjust, Repair</div>
+            <div class="service-price">$250</div>
+          </div>
+          <div class="service-option" onclick="selectService(this)">
             <div class="service-name">Basic Tune</div>
             <div class="service-detail">2 hours</div>
             <div class="service-price">$155</div>
-          </div>
-          <div class="service-option" onclick="selectService(this)">
-            <div class="service-name">Full Service</div>
-            <div class="service-detail">3 hours</div>
-            <div class="service-price">$250</div>
           </div>
         </div>
 
@@ -432,6 +591,12 @@
           <input type="email" placeholder="you@email.com" id="emailInput">
         </div>
 
+        <!-- Optional address -->
+        <div class="input-group">
+          <label>Piano address <span class="optional">(optional — where's the piano?)</span></label>
+          <input type="text" placeholder="123 Main St, Kansas City" id="addressInput">
+        </div>
+
         <!-- Book button -->
         <button class="book-btn" onclick="handleBook()">Book Now</button>
         <p class="book-note">Jake will text you to confirm within the hour.<br>No charge until the tuning is complete.</p>
@@ -445,18 +610,12 @@
       </div>
     </div>
 
-    <!-- Info below the card -->
+    <!-- Quick info bar -->
     <div class="info-section">
       <div class="info-row">
         <div class="info-icon">&#9742;</div>
         <div class="info-text">
           Prefer to call? <a href="tel:9137258124"><strong>(913) 725-8124</strong></a>
-        </div>
-      </div>
-      <div class="info-row">
-        <div class="info-icon">&#9733;</div>
-        <div class="info-text">
-          <strong>NBC's The Voice alum</strong> &middot; 10+ years tuning pianos
         </div>
       </div>
       <div class="info-row">
@@ -467,11 +626,57 @@
       </div>
     </div>
 
+    <!-- Meet Jake section -->
+    <div class="about-section">
+      <div class="about-photo-wrapper">
+        <img src="../../images/jake-tuning.jpg" alt="Jake Wells tuning a piano" class="about-photo">
+      </div>
+      <h2 class="about-heading">Hi, I'm Jake</h2>
+      <p>I grew up in Pensacola, Florida, and music has been at the center of my life for as long as I can remember. Singing and piano have always been my two main pursuits. I studied music composition at the University of Northern Colorado, and in 2018 you might have caught me on NBC's The Voice (thanks for the chair turn, Adam).</p>
+      <p>I started playing piano when I was 11 years old. I tuned my first piano more than a decade ago. I'll be honest: I made it worse. But that "failure" was the spark that made me realize just how deep and fascinating this craft is. Every piano has its own personality: a unique feel, sound, look, resonance, hum, and history.</p>
+      <p>Here's the funny thing — I've never had a formal piano lesson. I've always trusted my ear, and that instinct has guided me both as a musician and as a tuner. When you hire me, you're not just getting a technician — you're inviting someone who listens closely, responds sensitively, and helps your piano find its natural voice again.</p>
+      <p class="tagline-text"><em>Let's make your piano sing.</em></p>
+    </div>
+
+    <!-- As Seen On -->
+    <div class="press-section">
+      <p class="press-label">As Seen On</p>
+      <div class="press-logos">
+        <img src="../../images/logo-yahoo.jpg" alt="Yahoo Entertainment">
+        <img src="../../images/logo-the-pitch.png" alt="The Pitch KC">
+        <img src="../../images/logo-the-voice.jpg" alt="NBC's The Voice">
+        <img src="../../images/logo-kshb41.png" alt="KSHB 41">
+        <img src="../../images/logo-sofar.png" alt="Sofar Sounds">
+      </div>
+    </div>
+
+    <!-- What you get -->
+    <div class="services-detail">
+      <h3>What's Included</h3>
+      <div class="service-detail-card">
+        <h4>Full Service Call &middot; $250</h4>
+        <p>3 hours. Tune, clean, adjust, and repair. For pianos that get serviced less than once a year or need some extra TLC. The works.</p>
+      </div>
+      <div class="service-detail-card">
+        <h4>Basic Tuning &middot; $155</h4>
+        <p>2 hours. The tune, the whole tune, and nothing but the tune. For pianos that are regularly maintained and just need to be brought back to pitch.</p>
+      </div>
+    </div>
+
+    <!-- Second portrait + quote -->
+    <div class="bottom-photo-section">
+      <img src="../../images/jake-portrait.jpg" alt="Jake Wells, piano tuner in Kansas City" class="bottom-portrait">
+      <blockquote>"Whether your piano has turned into a piece of furniture that hasn't been touched in years, or it's your pride and joy that needs to be studio-ready, I can help you bring it back to life."</blockquote>
+    </div>
+
     <!-- Footer -->
     <div class="footer">
-      <img src="../../images/jake-tuning.jpg" alt="Jake tuning a piano" class="footer-photo">
-      <p>"When you hire me, you're inviting someone who listens closely
-         and helps your piano find its natural voice again."</p>
+      <h4>Piano Tuning KC</h4>
+      <p class="footer-sub">by Jake Wells</p>
+      <div class="footer-links">
+        <a href="mailto:Jake@pianotuningkc.com">Jake@pianotuningkc.com</a>
+        <a href="tel:9137258124">(913) 725-8124</a>
+      </div>
       <span class="voice-badge">The Voice &middot; Season 14</span>
     </div>
   </div>
