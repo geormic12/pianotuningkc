@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Piano Tuning KC — Jake Wells | Craftsmanship & Care for Your Piano</title>
+  <meta name="description" content="Professional piano tuning by Jake Wells in Kansas City. Artisan care for every instrument, from family uprights to concert grands.">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      background: #FAF6F1;
+      color: #3a3a3a;
+      padding-top: 28px;
+      line-height: 1.7;
+    }
+
+    /* Version Bar */
+    .version-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: #111;
+      color: #888;
+      font-size: 0.7rem;
+      padding: 0.4rem 1rem;
+      display: flex;
+      gap: 1rem;
+      z-index: 9999;
+      font-family: 'Source Sans 3', sans-serif;
+    }
+    .version-bar a {
+      color: #888;
+      text-decoration: none;
+    }
+    .version-bar a:hover {
+      color: #D4A853;
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('../../images/hero-piano.jpg') center center / cover no-repeat;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(92, 61, 46, 0.55) 0%,
+        rgba(92, 61, 46, 0.7) 60%,
+        rgba(250, 246, 241, 1) 100%
+      );
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+      padding: 3rem 2rem;
+    }
+    .hero-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: #D4A853;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    .hero-title {
+      font-family: 'Lora', serif;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+    .hero-sub {
+      font-size: 1.15rem;
+      color: rgba(255,255,255,0.85);
+      font-weight: 300;
+      max-width: 500px;
+      margin: 0 auto 2rem;
+    }
+    .btn-walnut {
+      display: inline-block;
+      background: #5C3D2E;
+      color: #FAF6F1;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0.9rem 2.2rem;
+      border-radius: 4px;
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .btn-walnut:hover {
+      background: #D4A853;
+      color: #3a2a1e;
+      transform: translateY(-2px);
+    }
+
+    /* Section shared */
+    .section {
+      padding: 5rem 2rem;
+    }
+    .section-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: #D4A853;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+    .section-heading {
+      font-family: 'Lora', serif;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700;
+      color: #5C3D2E;
+      margin-bottom: 1.25rem;
+      line-height: 1.2;
+    }
+
+    /* About / Bio */
+    .bio-section {
+      background: #FAF6F1;
+    }
+    .bio-grid {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    .bio-photo-frame {
+      padding: 8px;
+      background: linear-gradient(135deg, #D4A853 0%, #5C3D2E 100%);
+      border-radius: 6px;
+    }
+    .bio-photo {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      border-radius: 4px;
+      display: block;
+    }
+    .bio-text p {
+      font-size: 1.05rem;
+      color: #555;
+      margin-bottom: 1rem;
+    }
+    .bio-text .craft-quote {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 1.25rem;
+      color: #5C3D2E;
+      border-left: 3px solid #D4A853;
+      padding-left: 1.25rem;
+      margin: 1.5rem 0;
+    }
+    .bio-text .voice-mention {
+      font-size: 0.9rem;
+      color: #999;
+    }
+
+    /* Warm divider */
+    .warm-divider {
+      max-width: 960px;
+      margin: 0 auto;
+      height: 1px;
+      background: linear-gradient(to right, transparent, #D4A853, transparent);
+    }
+
+    /* Pricing */
+    .pricing-section {
+      background: #F5EDE3;
+    }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2.5rem;
+    }
+    .price-placard {
+      background: #FAF6F1;
+      border: 2px solid #e0d5c5;
+      border-radius: 8px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 4px 20px rgba(92, 61, 46, 0.06);
+    }
+    .price-placard::before {
+      content: '';
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      right: 8px;
+      bottom: 8px;
+      border: 1px solid #e0d5c5;
+      border-radius: 4px;
+      pointer-events: none;
+    }
+    .placard-title {
+      font-family: 'Lora', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #5C3D2E;
+      margin-bottom: 0.4rem;
+    }
+    .placard-duration {
+      font-size: 0.85rem;
+      color: #b8a080;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1.5rem;
+    }
+    .placard-price {
+      font-family: 'Lora', serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: #5C3D2E;
+      margin-bottom: 0.25rem;
+    }
+    .placard-price sup {
+      font-size: 1.2rem;
+      top: -1rem;
+    }
+    .placard-desc {
+      font-size: 0.95rem;
+      color: #888;
+      margin: 1rem 0 1.5rem;
+      line-height: 1.6;
+    }
+    .placard-btn {
+      display: inline-block;
+      background: #5C3D2E;
+      color: #FAF6F1;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 0.75rem 2rem;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+    .placard-btn:hover {
+      background: #D4A853;
+      color: #3a2a1e;
+    }
+
+    /* What to expect */
+    .expect-section {
+      background: #FAF6F1;
+    }
+    .expect-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 2.5rem;
+    }
+    .expect-item {
+      text-align: center;
+      padding: 1.5rem;
+    }
+    .expect-icon {
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+    .expect-item h4 {
+      font-family: 'Lora', serif;
+      font-size: 1.1rem;
+      color: #5C3D2E;
+      margin-bottom: 0.5rem;
+    }
+    .expect-item p {
+      font-size: 0.9rem;
+      color: #888;
+    }
+
+    /* CTA */
+    .cta-section {
+      padding: 5rem 2rem;
+      text-align: center;
+      background: linear-gradient(135deg, #5C3D2E 0%, #3a2a1e 100%);
+    }
+    .cta-section h2 {
+      font-family: 'Lora', serif;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      color: #FAF6F1;
+      margin-bottom: 0.75rem;
+    }
+    .cta-section p {
+      color: rgba(250,246,241,0.7);
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+    }
+    .btn-gold-outline {
+      display: inline-block;
+      border: 2px solid #D4A853;
+      color: #D4A853;
+      font-weight: 600;
+      font-size: 1.05rem;
+      padding: 0.9rem 2.2rem;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    .btn-gold-outline:hover {
+      background: #D4A853;
+      color: #3a2a1e;
+    }
+
+    /* Footer */
+    footer {
+      background: #2a1e16;
+      padding: 3rem 2rem;
+      text-align: center;
+      color: #a09080;
+    }
+    footer a {
+      color: #D4A853;
+      text-decoration: none;
+    }
+    footer a:hover {
+      color: #FAF6F1;
+    }
+    .footer-name {
+      font-family: 'Lora', serif;
+      font-size: 1.2rem;
+      color: #FAF6F1;
+      margin-bottom: 0.5rem;
+    }
+    .footer-contact {
+      font-size: 0.9rem;
+      margin-bottom: 0.25rem;
+    }
+    .footer-copy {
+      font-size: 0.75rem;
+      color: #665544;
+      margin-top: 1.5rem;
+    }
+
+    @media (max-width: 700px) {
+      .bio-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .bio-photo-frame {
+        max-width: 250px;
+        margin: 0 auto;
+      }
+      .bio-text .craft-quote {
+        border-left: none;
+        padding-left: 0;
+        text-align: center;
+      }
+      .expect-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="version-bar">
+  <a href="../">All Versions</a>
+  <a href="../v1-zen/">V1</a> <a href="../v2-letter/">V2</a> <a href="../v3-bigbutton/">V3</a>
+  <a href="../v4-musician/">V4</a> <a href="../v5-onebook/">V5</a> <a href="../v6-earthy/">V6</a>
+  <a href="../v7-concert/">V7</a> <a href="../v8-neighbor/">V8</a> <a href="../v9-trust/">V9</a>
+  <a href="../v10-keys/">V10</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-label">Piano Tuning KC</p>
+    <h1 class="hero-title">Craftsmanship &amp; Care for Your Piano</h1>
+    <p class="hero-sub">Artisan piano tuning by Jake Wells, bringing warmth and precision to every instrument in Kansas City.</p>
+    <a href="https://pianotuningkc.as.me/" class="btn-walnut">Schedule a Tuning</a>
+  </div>
+</section>
+
+<!-- BIO -->
+<section class="section bio-section">
+  <div class="section-inner">
+    <div class="bio-grid">
+      <div class="bio-photo-frame">
+        <img src="../../images/jake-portrait.jpg" alt="Jake Wells" class="bio-photo">
+      </div>
+      <div class="bio-text">
+        <p class="section-label">Meet Your Tuner</p>
+        <h2 class="section-heading">Jake Wells</h2>
+        <p>Jake is a professional piano tuner and musician based in Kansas City. He approaches every piano the way a luthier approaches a fine instrument &mdash; with patience, respect, and an ear honed by years of performance.</p>
+        <div class="craft-quote">"Every piano has its own personality. My job is to bring out its best voice."</div>
+        <p class="voice-mention">Jake is also a singer-songwriter and alum of NBC's The Voice (Season 14, Team Adam Levine).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="warm-divider"></div>
+
+<!-- PRICING -->
+<section class="section pricing-section">
+  <div class="section-inner" style="text-align: center;">
+    <p class="section-label">Services &amp; Pricing</p>
+    <h2 class="section-heading">Honest Pricing. No Surprises.</h2>
+
+    <div class="pricing-grid">
+      <div class="price-placard">
+        <h3 class="placard-title">Basic Tuning</h3>
+        <p class="placard-duration">Approximately 2 hours</p>
+        <p class="placard-price"><sup>$</sup>155</p>
+        <p class="placard-desc">A careful, full-keyboard tuning for pianos in regular playing condition. Ideal for instruments tuned within the past year or two.</p>
+        <a href="https://pianotuningkc.as.me/" class="placard-btn">Book This Service</a>
+      </div>
+      <div class="price-placard">
+        <h3 class="placard-title">Standard Service Call</h3>
+        <p class="placard-duration">Approximately 3 hours</p>
+        <p class="placard-price"><sup>$</sup>250</p>
+        <p class="placard-desc">Comprehensive tuning plus a full evaluation, minor adjustments, and care recommendations. Best for pianos that need extra attention.</p>
+        <a href="https://pianotuningkc.as.me/" class="placard-btn">Book This Service</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="warm-divider"></div>
+
+<!-- WHAT TO EXPECT -->
+<section class="section expect-section">
+  <div class="section-inner" style="text-align: center;">
+    <p class="section-label">The Experience</p>
+    <h2 class="section-heading">What to Expect</h2>
+    <div class="expect-grid">
+      <div class="expect-item">
+        <span class="expect-icon" aria-hidden="true">&#9834;</span>
+        <h4>A Musician's Ear</h4>
+        <p>Jake listens to your piano the way a musician listens to music &mdash; with nuance, sensitivity, and care for every note.</p>
+      </div>
+      <div class="expect-item">
+        <span class="expect-icon" aria-hidden="true">&#9670;</span>
+        <h4>Unhurried Precision</h4>
+        <p>No rushing. Every tuning gets the full time it deserves. Jake stays until the piano sounds right.</p>
+      </div>
+      <div class="expect-item">
+        <span class="expect-icon" aria-hidden="true">&#9825;</span>
+        <h4>Genuine Care</h4>
+        <p>Your piano is more than furniture. Jake treats every instrument with the respect it deserves, whether it cost $500 or $50,000.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Your Piano Is Waiting</h2>
+  <p>Give it the care it deserves. Book a tuning with Jake today.</p>
+  <a href="https://pianotuningkc.as.me/" class="btn-gold-outline">Schedule Your Tuning</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-name">Piano Tuning KC</p>
+  <p class="footer-contact"><a href="tel:9137258124">(913) 725-8124</a> &nbsp;&bull;&nbsp; <a href="mailto:Jake@pianotuningkc.com">Jake@pianotuningkc.com</a></p>
+  <p class="footer-copy">Jake Wells &bull; Kansas City</p>
+</footer>
+
+</body>
+</html>

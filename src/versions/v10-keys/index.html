@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Piano Tuning KC — Jake Wells</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    .version-bar {
+      position: fixed; top: 0; left: 0; right: 0;
+      background: #111; color: #888; font-size: 0.7rem;
+      padding: 0.4rem 1rem; display: flex; gap: 1rem; z-index: 9999;
+      font-family: sans-serif;
+    }
+    .version-bar a { color: #888; text-decoration: none; }
+    .version-bar a:hover { color: #ccc; }
+
+    body {
+      padding-top: 28px;
+      background: #FAFAFA;
+      color: #1a1a1a;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* Piano keys header border */
+    .piano-keys-top {
+      display: flex;
+      height: 60px;
+      background: #111;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .white-key {
+      flex: 1;
+      background: #F5F0E8;
+      border-right: 1px solid #D4CFC5;
+      border-bottom: 2px solid #B8B0A0;
+      position: relative;
+      transition: background 0.15s ease;
+    }
+
+    .white-key:last-child { border-right: none; }
+
+    .white-key:hover {
+      background: #EDE8DC;
+    }
+
+    .black-key-wrapper {
+      position: absolute;
+      top: 0;
+      height: 38px;
+      display: flex;
+      pointer-events: none;
+      width: 100%;
+    }
+
+    .black-key {
+      position: absolute;
+      width: 3.5%;
+      height: 100%;
+      background: linear-gradient(180deg, #222 0%, #111 100%);
+      border-radius: 0 0 3px 3px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+      pointer-events: auto;
+      transition: height 0.1s ease;
+    }
+
+    .black-key:hover {
+      height: 90%;
+    }
+
+    /* Hero */
+    .hero {
+      background: #111;
+      color: white;
+      text-align: center;
+      padding: 4rem 2rem 5rem;
+      position: relative;
+    }
+
+    .hero-notes {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .hero-notes span {
+      position: absolute;
+      font-size: 2rem;
+      opacity: 0.06;
+      color: #D4A853;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.2rem;
+      font-weight: 900;
+      margin-bottom: 0.5rem;
+      position: relative;
+    }
+
+    .hero h1 .gold { color: #D4A853; }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: #888;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .hero-cta {
+      display: inline-block;
+      background: #D4A853;
+      color: #111;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 1rem 2.5rem;
+      border-radius: 4px;
+      text-decoration: none;
+      position: relative;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      /* Piano key press effect */
+      box-shadow: 0 4px 0 #B8903F, 0 6px 12px rgba(0,0,0,0.3);
+    }
+
+    .hero-cta:hover {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 #B8903F, 0 3px 8px rgba(0,0,0,0.3);
+    }
+
+    .hero-cta:active {
+      transform: translateY(4px);
+      box-shadow: 0 0 0 #B8903F, 0 1px 4px rgba(0,0,0,0.3);
+    }
+
+    .hero-phone {
+      display: block;
+      margin-top: 1.2rem;
+      color: #666;
+      font-size: 0.9rem;
+      position: relative;
+    }
+
+    .hero-phone a {
+      color: #D4A853;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* Staff line divider */
+    .staff-divider {
+      padding: 2rem 0;
+      position: relative;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .staff-lines {
+      position: relative;
+      height: 40px;
+    }
+
+    .staff-lines::before,
+    .staff-lines::after,
+    .staff-lines .l2,
+    .staff-lines .l3,
+    .staff-lines .l4 {
+      content: '';
+      position: absolute;
+      left: 0; right: 0;
+      height: 1px;
+      background: #DDD;
+    }
+
+    .staff-lines::before { top: 0; }
+    .staff-lines .l2 { top: 10px; }
+    .staff-lines .l3 { top: 20px; }
+    .staff-lines .l4 { top: 30px; }
+    .staff-lines::after { top: 40px; }
+
+    .staff-clef {
+      position: absolute;
+      left: 1rem;
+      top: -8px;
+      font-size: 2.5rem;
+      color: #D4A853;
+      line-height: 1;
+    }
+
+    .staff-notes-deco {
+      position: absolute;
+      right: 2rem;
+      top: 4px;
+      font-size: 1.5rem;
+      color: #CCC;
+      letter-spacing: 0.5rem;
+    }
+
+    /* Services as measures */
+    .services {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+
+    .services h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .services h2 .gold { color: #D4A853; }
+
+    .measure-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .measure {
+      background: white;
+      border: 2px solid #E8E4DC;
+      border-radius: 8px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s ease;
+    }
+
+    .measure:hover {
+      border-color: #D4A853;
+    }
+
+    .measure::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px;
+      height: 100%;
+      background: #111;
+    }
+
+    .measure::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 2px;
+      height: 100%;
+      background: #111;
+    }
+
+    .measure-time {
+      position: absolute;
+      top: 0.5rem; left: 0.8rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: #DDD;
+      line-height: 1;
+    }
+
+    .measure-name {
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-bottom: 0.3rem;
+      padding-left: 1.5rem;
+    }
+
+    .measure-detail {
+      font-size: 0.85rem;
+      color: #888;
+      padding-left: 1.5rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .measure-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 900;
+      color: #D4A853;
+      padding-left: 1.5rem;
+    }
+
+    .measure-note {
+      position: absolute;
+      bottom: 0.8rem;
+      right: 1rem;
+      font-size: 1.8rem;
+      color: #EEE;
+    }
+
+    /* About */
+    .about {
+      background: #111;
+      color: white;
+      padding: 4rem 2rem;
+    }
+
+    .about-content {
+      display: flex;
+      gap: 3rem;
+      align-items: center;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .about-photo {
+      width: 260px;
+      height: 320px;
+      object-fit: cover;
+      border-radius: 8px;
+      flex-shrink: 0;
+      border: 3px solid #D4A853;
+    }
+
+    .about-text h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .about-text h2 .gold { color: #D4A853; }
+
+    .about-text p {
+      color: #AAA;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+
+    .about-text .voice-tag {
+      display: inline-block;
+      border: 1px solid #D4A853;
+      color: #D4A853;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.3rem 0.9rem;
+      border-radius: 4px;
+      margin-top: 0.5rem;
+    }
+
+    /* Contact */
+    .contact {
+      text-align: center;
+      padding: 4rem 2rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .contact h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-sub {
+      color: #888;
+      margin-bottom: 2rem;
+    }
+
+    .contact-methods {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .contact-method {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: #1a1a1a;
+      padding: 1.5rem 2rem;
+      background: white;
+      border: 2px solid #E8E4DC;
+      border-radius: 8px;
+      transition: border-color 0.2s ease, transform 0.15s ease;
+      min-width: 160px;
+    }
+
+    .contact-method:hover {
+      border-color: #D4A853;
+      transform: translateY(-2px);
+    }
+
+    .contact-method .icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-method .label {
+      font-size: 0.75rem;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    .contact-method .value {
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    /* Piano keys footer */
+    .piano-keys-bottom {
+      display: flex;
+      height: 50px;
+      background: #111;
+      position: relative;
+      overflow: hidden;
+      transform: rotate(180deg);
+    }
+
+    .piano-keys-bottom .white-key {
+      border-bottom: none;
+      border-top: 2px solid #B8B0A0;
+    }
+
+    footer {
+      background: #111;
+      color: #555;
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.8rem;
+    }
+
+    footer a {
+      color: #D4A853;
+      text-decoration: none;
+    }
+
+    @media (max-width: 700px) {
+      .hero h1 { font-size: 2.2rem; }
+      .measure-container { grid-template-columns: 1fr; }
+      .about-content { flex-direction: column; text-align: center; }
+      .about-photo { width: 200px; height: 250px; }
+      .contact-methods { flex-direction: column; align-items: center; }
+      .piano-keys-top, .piano-keys-bottom { height: 40px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="version-bar">
+  <a href="../">All Versions</a>
+  <a href="../v1-zen/">V1</a> <a href="../v2-letter/">V2</a> <a href="../v3-bigbutton/">V3</a>
+  <a href="../v4-musician/">V4</a> <a href="../v5-onebook/">V5</a> <a href="../v6-earthy/">V6</a>
+  <a href="../v7-concert/">V7</a> <a href="../v8-neighbor/">V8</a> <a href="../v9-trust/">V9</a>
+  <a href="../v10-keys/">V10</a>
+</nav>
+
+<!-- Piano keys header -->
+<div class="piano-keys-top">
+  <div class="white-key"></div><div class="white-key"></div><div class="white-key"></div>
+  <div class="white-key"></div><div class="white-key"></div><div class="white-key"></div>
+  <div class="white-key"></div><div class="white-key"></div><div class="white-key"></div>
+  <div class="white-key"></div><div class="white-key"></div><div class="white-key"></div>
+  <div class="white-key"></div><div class="white-key"></div><div class="white-key"></div>
+  <div class="white-key"></div><div class="white-key"></div><div class="white-key"></div>
+  <div class="white-key"></div><div class="white-key"></div><div class="white-key"></div>
+  <div class="black-key-wrapper">
+    <!-- Black keys positioned between white keys (C#, D#, skip, F#, G#, A#, repeat) -->
+    <div class="black-key" style="left:3.7%"></div>
+    <div class="black-key" style="left:8.5%"></div>
+    <div class="black-key" style="left:18%"></div>
+    <div class="black-key" style="left:22.8%"></div>
+    <div class="black-key" style="left:27.5%"></div>
+    <div class="black-key" style="left:37%"></div>
+    <div class="black-key" style="left:41.8%"></div>
+    <div class="black-key" style="left:51.3%"></div>
+    <div class="black-key" style="left:56%"></div>
+    <div class="black-key" style="left:60.8%"></div>
+    <div class="black-key" style="left:70.3%"></div>
+    <div class="black-key" style="left:75%"></div>
+    <div class="black-key" style="left:84.5%"></div>
+    <div class="black-key" style="left:89.3%"></div>
+    <div class="black-key" style="left:94%"></div>
+  </div>
+</div>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-notes">
+    <span style="top:10%;left:5%">♪</span>
+    <span style="top:30%;left:15%">♫</span>
+    <span style="top:15%;right:10%">♯</span>
+    <span style="top:50%;right:20%">♭</span>
+    <span style="top:70%;left:8%">♪</span>
+    <span style="top:60%;right:5%">♫</span>
+    <span style="top:80%;left:25%">♯</span>
+    <span style="top:40%;left:50%">♪</span>
+  </div>
+  <h1>Piano <span class="gold">Tuning</span> in Kansas City</h1>
+  <p class="hero-sub">Professional tuning by Jake Wells — musician, Voice alum, and piano whisperer</p>
+  <a href="https://pianotuningkc.as.me/" class="hero-cta">Book Your Tuning</a>
+  <span class="hero-phone">or call <a href="tel:9137258124">(913) 725-8124</a></span>
+</section>
+
+<!-- Staff line divider -->
+<div class="staff-divider">
+  <div class="staff-lines">
+    <span class="l2"></span>
+    <span class="l3"></span>
+    <span class="l4"></span>
+    <span class="staff-clef">𝄞</span>
+    <span class="staff-notes-deco">♩ ♪ ♩</span>
+  </div>
+</div>
+
+<!-- Services as measures -->
+<section class="services">
+  <h2>The <span class="gold">Setlist</span></h2>
+  <div class="measure-container">
+    <div class="measure">
+      <div class="measure-time">𝄴</div>
+      <div class="measure-name">Basic Tuning</div>
+      <div class="measure-detail">~2 hours &middot; Precision tuning</div>
+      <div class="measure-price">$155</div>
+      <div class="measure-note">♩</div>
+    </div>
+    <div class="measure">
+      <div class="measure-time">𝄴</div>
+      <div class="measure-name">Standard Service</div>
+      <div class="measure-detail">~3 hours &middot; Tuning + repairs</div>
+      <div class="measure-price">$250</div>
+      <div class="measure-note">♫</div>
+    </div>
+  </div>
+</section>
+
+<!-- Staff divider -->
+<div class="staff-divider">
+  <div class="staff-lines">
+    <span class="l2"></span>
+    <span class="l3"></span>
+    <span class="l4"></span>
+    <span class="staff-clef">𝄢</span>
+    <span class="staff-notes-deco">♬ ♩ ♪</span>
+  </div>
+</div>
+
+<!-- About -->
+<section class="about">
+  <div class="about-content">
+    <img src="../../images/jake-portrait.jpg" alt="Jake Wells" class="about-photo">
+    <div class="about-text">
+      <h2>Meet <span class="gold">Jake Wells</span></h2>
+      <p>I grew up in Pensacola, Florida, and music has been at the center of my life for as long as I can remember. I studied music composition at the University of Northern Colorado, and in 2018 you might have caught me on NBC's The Voice — thanks for the chair turn, Adam.</p>
+      <p>Every piano has its own personality: a unique feel, sound, look, resonance, hum, and history. I've always trusted my ear. When you hire me, you're inviting someone who listens closely, responds sensitively, and helps your piano find its natural voice again.</p>
+      <p>Let's make your piano sing.</p>
+      <span class="voice-tag">NBC's The Voice &middot; Season 14 &middot; Team Adam</span>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="contact">
+  <h2>Let's Get Started ♪</h2>
+  <p class="contact-sub">Book online, call, or drop Jake an email</p>
+  <div class="contact-methods">
+    <a href="tel:9137258124" class="contact-method">
+      <span class="icon">♪</span>
+      <span class="label">Call</span>
+      <span class="value">(913) 725-8124</span>
+    </a>
+    <a href="https://pianotuningkc.as.me/" class="contact-method">
+      <span class="icon">♫</span>
+      <span class="label">Book Online</span>
+      <span class="value">Schedule Now</span>
+    </a>
+    <a href="mailto:Jake@pianotuningkc.com" class="contact-method">
+      <span class="icon">♩</span>
+      <span class="label">Email</span>
+      <span class="value">Jake@pianotuningkc.com</span>
+    </a>
+  </div>
+</section>
+
+<!-- Piano keys footer -->
+<div class="piano-keys-bottom">
+  <div class="white-key"></div><div class="white-key"></div><div class="white-key"></div>
+  <div class="white-key"></div><div class="white-key"></div><div class="white-key"></div>
+  <div class="white-key"></div><div class="white-key"></div><div class="white-key"></div>
+  <div class="white-key"></div><div class="white-key"></div><div class="white-key"></div>
+  <div class="white-key"></div><div class="white-key"></div><div class="white-key"></div>
+  <div class="white-key"></div><div class="white-key"></div><div class="white-key"></div>
+  <div class="white-key"></div><div class="white-key"></div><div class="white-key"></div>
+  <div class="black-key-wrapper">
+    <div class="black-key" style="left:3.7%"></div>
+    <div class="black-key" style="left:8.5%"></div>
+    <div class="black-key" style="left:18%"></div>
+    <div class="black-key" style="left:22.8%"></div>
+    <div class="black-key" style="left:27.5%"></div>
+    <div class="black-key" style="left:37%"></div>
+    <div class="black-key" style="left:41.8%"></div>
+    <div class="black-key" style="left:51.3%"></div>
+    <div class="black-key" style="left:56%"></div>
+    <div class="black-key" style="left:60.8%"></div>
+    <div class="black-key" style="left:70.3%"></div>
+    <div class="black-key" style="left:75%"></div>
+    <div class="black-key" style="left:84.5%"></div>
+    <div class="black-key" style="left:89.3%"></div>
+    <div class="black-key" style="left:94%"></div>
+  </div>
+</div>
+
+<footer>
+  <p>Piano Tuning KC &middot; <a href="mailto:Jake@pianotuningkc.com">Jake@pianotuningkc.com</a> &middot; <a href="tel:9137258124">(913) 725-8124</a></p>
+</footer>
+
+</body>
+</html>

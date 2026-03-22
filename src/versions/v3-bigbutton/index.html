@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jake Wells — Piano Tuning in Kansas City</title>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    .version-bar {
+      position: fixed; top: 0; left: 0; right: 0;
+      background: #111; color: #888; font-size: 0.7rem;
+      padding: 0.4rem 1rem; display: flex; gap: 1rem;
+      z-index: 9999; font-family: sans-serif;
+    }
+    .version-bar a { color: #888; text-decoration: none; }
+    .version-bar a:hover { color: #ccc; }
+    .version-bar a[href="../v3-bigbutton/"] { color: #fff; }
+
+    body {
+      font-family: 'Source Sans 3', 'Segoe UI', Arial, sans-serif;
+      font-size: 1.3rem;
+      line-height: 1.6;
+      background: #FFFFFF;
+      color: #1A1A1A;
+      padding-top: 28px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .header img {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #1B365D;
+      margin-bottom: 1.5rem;
+    }
+
+    .header h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #1B365D;
+      line-height: 1.15;
+      margin-bottom: 0.5rem;
+    }
+
+    .header .tagline {
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: #333;
+    }
+
+    .actions {
+      margin: 2.5rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .actions a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 80px;
+      padding: 1.2rem 2rem;
+      background: #1B365D;
+      color: #FFFFFF;
+      text-decoration: none;
+      font-size: 1.5rem;
+      font-weight: 700;
+      border-radius: 8px;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .actions a .emoji {
+      margin-right: 0.6rem;
+      font-size: 1.6rem;
+    }
+
+    .actions a.call { background: #1B365D; }
+    .actions a.book { background: #2E7D32; }
+    .actions a.email { background: #5C4033; }
+
+    .pricing {
+      margin: 3rem 0;
+      background: #F5F7FA;
+      border-radius: 8px;
+      padding: 2rem;
+    }
+
+    .pricing h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #1B365D;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .price-card {
+      background: #FFFFFF;
+      border: 2px solid #1B365D;
+      border-radius: 8px;
+      padding: 1.5rem 2rem;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .price-card:last-child { margin-bottom: 0; }
+
+    .price-card .service {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #1A1A1A;
+    }
+
+    .price-card .service small {
+      display: block;
+      font-size: 1rem;
+      font-weight: 400;
+      color: #555;
+      margin-top: 0.2rem;
+    }
+
+    .price-card .amount {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #1B365D;
+    }
+
+    .bio {
+      margin: 3rem 0;
+    }
+
+    .bio h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #1B365D;
+      margin-bottom: 1rem;
+    }
+
+    .bio p {
+      font-size: 1.3rem;
+      line-height: 1.7;
+      color: #333;
+      margin-bottom: 1rem;
+    }
+
+    .bio .voice-badge {
+      display: inline-block;
+      background: #1B365D;
+      color: #fff;
+      padding: 0.4rem 1rem;
+      border-radius: 4px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-top: 0.5rem;
+    }
+
+    .bio .jake-tuning {
+      width: 100%;
+      max-width: 100%;
+      border-radius: 8px;
+      margin-top: 1.5rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 0 3rem;
+      border-top: 2px solid #E0E0E0;
+      margin-top: 2rem;
+      color: #555;
+      font-size: 1.1rem;
+    }
+
+    footer a {
+      color: #1B365D;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    @media (max-width: 600px) {
+      .container { padding: 1.5rem 1rem; }
+      .header h1 { font-size: 2.4rem; }
+      .header .tagline { font-size: 1.2rem; }
+      .actions a { font-size: 1.3rem; min-height: 72px; }
+      .price-card { flex-direction: column; text-align: center; }
+      .price-card .amount { margin-top: 0.3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="version-bar">
+  <a href="../">All Versions</a>
+  <a href="../v1-zen/">V1</a> <a href="../v2-letter/">V2</a> <a href="../v3-bigbutton/">V3</a>
+  <a href="../v4-musician/">V4</a> <a href="../v5-onebook/">V5</a> <a href="../v6-earthy/">V6</a>
+  <a href="../v7-concert/">V7</a> <a href="../v8-neighbor/">V8</a> <a href="../v9-trust/">V9</a>
+  <a href="../v10-keys/">V10</a>
+</nav>
+
+<div class="container">
+
+  <div class="header">
+    <img src="../../images/jake-portrait.jpg" alt="Jake Wells, your piano tuner">
+    <h1>Jake Wells</h1>
+    <p class="tagline">Piano Tuning in Kansas City</p>
+  </div>
+
+  <div class="actions">
+    <a href="tel:9137258124" class="call">
+      <span class="emoji">&#x1F4DE;</span> Call Jake: (913) 725-8124
+    </a>
+    <a href="https://pianotuningkc.as.me/" class="book">
+      <span class="emoji">&#x1F4C5;</span> Book Online
+    </a>
+    <a href="mailto:Jake@pianotuningkc.com" class="email">
+      <span class="emoji">&#x1F4E7;</span> Email Jake
+    </a>
+  </div>
+
+  <div class="pricing">
+    <h2>Simple Pricing</h2>
+    <div class="price-card">
+      <div class="service">
+        Basic Tuning
+        <small>About 2 hours</small>
+      </div>
+      <div class="amount">$155</div>
+    </div>
+    <div class="price-card">
+      <div class="service">
+        Full Service Call
+        <small>About 3 hours</small>
+      </div>
+      <div class="amount">$250</div>
+    </div>
+  </div>
+
+  <div class="bio">
+    <h2>About Jake</h2>
+    <p>
+      Jake Wells is a professional piano tuner serving homes and venues across the
+      Kansas City metro. He's a classically trained musician who appeared on NBC's
+      The Voice, Season 14 — earning a chair turn from Adam Levine.
+    </p>
+    <span class="voice-badge">NBC's The Voice — Season 14</span>
+    <p style="margin-top: 1.5rem;">
+      Jake brings a musician's ear to every tuning. He takes his time, listens
+      carefully, and treats every piano with the attention it deserves. Your piano
+      is in good hands.
+    </p>
+    <img src="../../images/jake-tuning.jpg" alt="Jake tuning a piano" class="jake-tuning">
+  </div>
+
+  <footer>
+    <p>Serving the entire Kansas City metro area</p>
+    <p style="margin-top: 0.5rem;">
+      <a href="tel:9137258124">(913) 725-8124</a> &nbsp;|&nbsp;
+      <a href="mailto:Jake@pianotuningkc.com">Jake@pianotuningkc.com</a>
+    </p>
+  </footer>
+
+</div>
+
+</body>
+</html>

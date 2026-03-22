@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Piano Tuning KC — Jake Wells</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    .version-bar {
+      position: fixed; top: 0; left: 0; right: 0;
+      background: #111; color: #888; font-size: 0.7rem;
+      padding: 0.4rem 1rem; display: flex; gap: 1rem; z-index: 9999;
+      font-family: sans-serif;
+    }
+    .version-bar a { color: #888; text-decoration: none; }
+    .version-bar a:hover { color: #ccc; }
+
+    body {
+      padding-top: 28px;
+      background: #FFFEF7;
+      color: #2A2520;
+      font-family: 'Cormorant Garamond', 'Georgia', serif;
+      font-size: 18px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    .program-wrapper {
+      max-width: 700px;
+      margin: 3rem auto;
+      padding: 3rem 3.5rem;
+      border: 1px solid #C8B89A;
+      position: relative;
+    }
+
+    .program-wrapper::before {
+      content: '';
+      position: absolute;
+      top: 6px; left: 6px; right: 6px; bottom: 6px;
+      border: 1px solid #D8CBBA;
+      pointer-events: none;
+    }
+
+    .program-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .program-title {
+      font-size: 0.95rem;
+      font-variant: small-caps;
+      letter-spacing: 0.35em;
+      text-transform: lowercase;
+      color: #7A6B5D;
+      margin-bottom: 0.5rem;
+    }
+
+    .presents {
+      font-style: italic;
+      font-size: 1rem;
+      color: #9A8B7A;
+      margin-bottom: 1rem;
+    }
+
+    .artist-name {
+      font-size: 3rem;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      line-height: 1.2;
+      color: #2A2520;
+      margin-bottom: 0.3rem;
+    }
+
+    .artist-subtitle {
+      font-style: italic;
+      font-size: 1.05rem;
+      color: #7A6B5D;
+      letter-spacing: 0.05em;
+    }
+
+    /* Ornamental rule with center diamond */
+    .ornament {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 2rem 0;
+      gap: 0;
+    }
+    .ornament::before,
+    .ornament::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #C8B89A;
+    }
+    .ornament .diamond {
+      width: 8px;
+      height: 8px;
+      background: #C8B89A;
+      transform: rotate(45deg);
+      margin: 0 1rem;
+      flex-shrink: 0;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 0.85rem;
+      font-variant: small-caps;
+      letter-spacing: 0.3em;
+      text-transform: lowercase;
+      color: #7A6B5D;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Programme listing */
+    .programme-list {
+      list-style: none;
+      margin-bottom: 0.5rem;
+    }
+
+    .programme-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 0.6rem 0;
+      border-bottom: 1px dotted #D8CBBA;
+    }
+
+    .programme-item:last-child {
+      border-bottom: none;
+    }
+
+    .programme-name {
+      font-size: 1.15rem;
+      font-weight: 500;
+    }
+
+    .programme-detail {
+      font-style: italic;
+      font-size: 0.95rem;
+      color: #7A6B5D;
+      text-align: right;
+      white-space: nowrap;
+      margin-left: 1rem;
+    }
+
+    .programme-desc {
+      font-size: 0.9rem;
+      color: #8A7B6A;
+      font-style: italic;
+      padding: 0.2rem 0 0.4rem 0;
+    }
+
+    .about-section {
+      margin-top: 0;
+    }
+
+    .about-content {
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+    }
+
+    .about-photo {
+      width: 160px;
+      height: 200px;
+      object-fit: cover;
+      flex-shrink: 0;
+      filter: sepia(15%);
+      border: 1px solid #D8CBBA;
+    }
+
+    .about-text {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: #3A352F;
+    }
+
+    .about-text p {
+      text-indent: 1.5em;
+      margin-bottom: 0.5rem;
+    }
+
+    .about-text p:first-child {
+      text-indent: 0;
+    }
+
+    .booking-section {
+      text-align: center;
+      margin-top: 0;
+    }
+
+    .booking-text {
+      font-style: italic;
+      font-size: 1.1rem;
+      color: #5A4B3A;
+      margin-bottom: 1.2rem;
+    }
+
+    .booking-link {
+      display: inline-block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem;
+      font-variant: small-caps;
+      letter-spacing: 0.25em;
+      text-transform: lowercase;
+      color: #2A2520;
+      border: 1px solid #C8B89A;
+      padding: 0.7rem 2.5rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .booking-link:hover {
+      background: #2A2520;
+      color: #FFFEF7;
+      border-color: #2A2520;
+    }
+
+    .contact-line {
+      text-align: center;
+      margin-top: 1.2rem;
+      font-size: 0.9rem;
+      color: #8A7B6A;
+    }
+
+    .contact-line a {
+      color: #5A4B3A;
+      text-decoration: none;
+      border-bottom: 1px dotted #C8B89A;
+    }
+
+    .program-footer {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+    }
+
+    .footer-line {
+      font-size: 0.8rem;
+      color: #AA9B8A;
+      font-style: italic;
+      letter-spacing: 0.05em;
+    }
+
+    .footer-credits {
+      font-size: 0.75rem;
+      color: #BBA;
+      margin-top: 0.5rem;
+      font-variant: small-caps;
+      letter-spacing: 0.15em;
+    }
+
+    .voice-note {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #9A8B7A;
+      font-style: italic;
+      margin-top: 0.8rem;
+    }
+
+    @media (max-width: 700px) {
+      .program-wrapper {
+        margin: 1rem 0.8rem;
+        padding: 2rem 1.5rem;
+      }
+      .artist-name { font-size: 2.2rem; }
+      .about-content {
+        flex-direction: column;
+        align-items: center;
+      }
+      .about-photo {
+        width: 140px;
+        height: 175px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="version-bar">
+  <a href="../">All Versions</a>
+  <a href="../v1-zen/">V1</a> <a href="../v2-letter/">V2</a> <a href="../v3-bigbutton/">V3</a>
+  <a href="../v4-musician/">V4</a> <a href="../v5-onebook/">V5</a> <a href="../v6-earthy/">V6</a>
+  <a href="../v7-concert/">V7</a> <a href="../v8-neighbor/">V8</a> <a href="../v9-trust/">V9</a>
+  <a href="../v10-keys/">V10</a>
+</nav>
+
+<div class="program-wrapper">
+
+  <header class="program-header">
+    <div class="program-title">Piano Tuning KC</div>
+    <div class="presents">presents</div>
+    <h1 class="artist-name">Jake Wells</h1>
+    <div class="artist-subtitle">Piano Tuning &amp; Service</div>
+    <div class="voice-note">NBC's The Voice, Season 14 &middot; Chair Turn by Adam Levine</div>
+  </header>
+
+  <div class="ornament"><span class="diamond"></span></div>
+
+  <section>
+    <h2 class="section-title">Programme</h2>
+    <ul class="programme-list">
+      <li>
+        <div class="programme-item">
+          <span class="programme-name">Basic Tuning</span>
+          <span class="programme-detail">$155</span>
+        </div>
+        <div class="programme-desc">Approximately two hours. A precise, careful tuning for your instrument.</div>
+      </li>
+      <li>
+        <div class="programme-item">
+          <span class="programme-name">Standard Service Call</span>
+          <span class="programme-detail">$250</span>
+        </div>
+        <div class="programme-desc">Approximately three hours. Tuning plus adjustments and minor repairs.</div>
+      </li>
+    </ul>
+  </section>
+
+  <div class="ornament"><span class="diamond"></span></div>
+
+  <section class="about-section">
+    <h2 class="section-title">About the Artist</h2>
+    <div class="about-content">
+      <img src="../../images/jake-portrait.jpg" alt="Jake Wells" class="about-photo">
+      <div class="about-text">
+        <p>I grew up in Pensacola, Florida, and music has been at the center of my life for as long as I can remember. I studied music composition at the University of Northern Colorado, and in 2018 you might have caught me on NBC's The Voice.</p>
+        <p>I started playing piano when I was 11. I tuned my first piano more than a decade ago. I'll be honest: I made it worse. But that failure was the spark. Every piano has its own personality: a unique feel, sound, look, resonance, hum, and history.</p>
+        <p>When you hire me, you're not just getting a technician — you're inviting someone who listens closely, responds sensitively, and helps your piano find its natural voice again.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="ornament"><span class="diamond"></span></div>
+
+  <section class="booking-section">
+    <h2 class="section-title">Reserve Your Appointment</h2>
+    <p class="booking-text">Let's make your piano sing.</p>
+    <a href="https://pianotuningkc.as.me/" class="booking-link">Book Your Tuning</a>
+    <div class="contact-line">
+      or call <a href="tel:9137258124">(913) 725-8124</a>
+      &nbsp;&middot;&nbsp;
+      <a href="mailto:Jake@pianotuningkc.com">Jake@pianotuningkc.com</a>
+    </div>
+  </section>
+
+  <footer class="program-footer">
+    <div class="ornament"><span class="diamond"></span></div>
+    <div class="footer-line">Serving the Kansas City Metropolitan Area</div>
+    <div class="footer-credits">Piano Tuning KC &middot; Jake Wells</div>
+  </footer>
+
+</div>
+
+</body>
+</html>

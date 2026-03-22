@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Piano Tuning — Jake Wells | Piano Tuning KC</title>
+  <meta name="description" content="Book your piano tuning appointment with Jake Wells in Kansas City. Pick a time and book instantly.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fff;
+      color: #333;
+      padding-top: 28px;
+      line-height: 1.6;
+    }
+
+    /* Version Bar */
+    .version-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: #111;
+      color: #888;
+      font-size: 0.7rem;
+      padding: 0.4rem 1rem;
+      display: flex;
+      gap: 1rem;
+      z-index: 9999;
+      font-family: 'Inter', sans-serif;
+    }
+    .version-bar a {
+      color: #888;
+      text-decoration: none;
+    }
+    .version-bar a:hover {
+      color: #fff;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.25rem 2rem;
+      border-bottom: 1px solid #eee;
+    }
+    .header-photo {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .header-info {
+      flex: 1;
+    }
+    .header-name {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #111;
+    }
+    .header-biz {
+      font-size: 0.8rem;
+      color: #888;
+    }
+    .header-phone {
+      font-size: 0.85rem;
+      color: #666;
+      text-decoration: none;
+    }
+    .header-phone:hover {
+      color: #111;
+    }
+
+    /* Pricing Banner */
+    .pricing-banner {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 0.75rem 1rem;
+      background: #f8f9fa;
+      border-bottom: 1px solid #eee;
+      flex-wrap: wrap;
+    }
+    .pricing-item {
+      font-size: 0.85rem;
+      color: #555;
+    }
+    .pricing-item strong {
+      color: #111;
+      font-weight: 600;
+    }
+
+    /* Booking Section */
+    .booking-section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 1rem;
+      text-align: center;
+    }
+    .booking-headline {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 0.25rem;
+    }
+    .booking-sub {
+      font-size: 0.95rem;
+      color: #888;
+      margin-bottom: 1.5rem;
+    }
+
+    .iframe-wrapper {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #e5e5e5;
+      background: #fafafa;
+    }
+    .iframe-wrapper iframe {
+      width: 100%;
+      height: 950px;
+      border: none;
+    }
+
+    /* Below The Fold */
+    .below-fold {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+    .divider {
+      width: 40px;
+      height: 2px;
+      background: #ddd;
+      margin: 0 auto 3rem;
+    }
+    .about-heading {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #111;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .about-body {
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+    }
+    .about-photo {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .about-text p {
+      font-size: 0.95rem;
+      color: #555;
+      margin-bottom: 0.75rem;
+    }
+    .about-text .voice-note {
+      font-size: 0.85rem;
+      color: #888;
+      border-left: 3px solid #e5e5e5;
+      padding-left: 0.75rem;
+      margin-top: 0.5rem;
+    }
+
+    /* Pricing Detail */
+    .pricing-detail {
+      margin-top: 3rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    .price-card {
+      border: 1px solid #eee;
+      border-radius: 8px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .price-card h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #111;
+      margin-bottom: 0.25rem;
+    }
+    .price-card .duration {
+      font-size: 0.8rem;
+      color: #999;
+      margin-bottom: 0.75rem;
+    }
+    .price-card .amount {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #111;
+    }
+
+    /* Contact strip */
+    .contact-strip {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid #eee;
+    }
+    .contact-strip p {
+      font-size: 0.9rem;
+      color: #888;
+      margin-bottom: 0.25rem;
+    }
+    .contact-strip a {
+      color: #333;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .contact-strip a:hover {
+      color: #000;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.75rem;
+      color: #ccc;
+      border-top: 1px solid #f0f0f0;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 600px) {
+      .about-body {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .about-text .voice-note {
+        border-left: none;
+        padding-left: 0;
+        border-top: 1px solid #eee;
+        padding-top: 0.75rem;
+      }
+      .pricing-detail {
+        grid-template-columns: 1fr;
+      }
+      .pricing-banner {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="version-bar">
+  <a href="../">All Versions</a>
+  <a href="../v1-zen/">V1</a> <a href="../v2-letter/">V2</a> <a href="../v3-bigbutton/">V3</a>
+  <a href="../v4-musician/">V4</a> <a href="../v5-onebook/">V5</a> <a href="../v6-earthy/">V6</a>
+  <a href="../v7-concert/">V7</a> <a href="../v8-neighbor/">V8</a> <a href="../v9-trust/">V9</a>
+  <a href="../v10-keys/">V10</a>
+</nav>
+
+<!-- Header -->
+<header class="header">
+  <img src="../../images/jake-portrait.jpg" alt="Jake Wells" class="header-photo">
+  <div class="header-info">
+    <div class="header-name">Jake Wells</div>
+    <div class="header-biz">Piano Tuning KC</div>
+  </div>
+  <a href="tel:9137258124" class="header-phone">(913) 725-8124</a>
+</header>
+
+<!-- Pricing Banner -->
+<div class="pricing-banner">
+  <span class="pricing-item"><strong>Basic Tuning</strong> &middot; 2 hours &middot; $155</span>
+  <span class="pricing-item"><strong>Full Service</strong> &middot; 3 hours &middot; $250</span>
+</div>
+
+<!-- Booking -->
+<section class="booking-section">
+  <h1 class="booking-headline">Pick a time that works for you</h1>
+  <p class="booking-sub">Select a service and choose an available slot below.</p>
+</section>
+
+<div class="iframe-wrapper">
+  <iframe
+    src="https://pianotuningkc.as.me/"
+    title="Book an appointment with Piano Tuning KC"
+    loading="eager"
+  ></iframe>
+</div>
+
+<!-- Below the fold -->
+<div class="below-fold">
+  <div class="divider"></div>
+
+  <h2 class="about-heading">About Jake</h2>
+  <div class="about-body">
+    <img src="../../images/jake-tuning.jpg" alt="Jake tuning a piano" class="about-photo">
+    <div class="about-text">
+      <p>Jake Wells is a professional piano tuner serving the Kansas City metro area. With a musician's ear and a technician's precision, Jake brings every piano back to its best sound.</p>
+      <p>He tunes uprights, grands, and everything in between &mdash; whether it's a family heirloom or a performance instrument.</p>
+      <div class="voice-note">
+        Jake is also a singer-songwriter and alum of NBC's The Voice (Season 14), where he received a chair turn from Adam Levine.
+      </div>
+    </div>
+  </div>
+
+  <!-- Pricing Detail -->
+  <div class="pricing-detail">
+    <div class="price-card">
+      <h4>Basic Tuning</h4>
+      <p class="duration">~2 hours</p>
+      <p class="amount">$155</p>
+    </div>
+    <div class="price-card">
+      <h4>Standard Service Call</h4>
+      <p class="duration">~3 hours</p>
+      <p class="amount">$250</p>
+    </div>
+  </div>
+
+  <!-- Contact -->
+  <div class="contact-strip">
+    <p>Prefer to call or email?</p>
+    <p><a href="tel:9137258124">(913) 725-8124</a> &nbsp;&bull;&nbsp; <a href="mailto:Jake@pianotuningkc.com">Jake@pianotuningkc.com</a></p>
+  </div>
+</div>
+
+<footer>
+  Piano Tuning KC &bull; Kansas City
+</footer>
+
+</body>
+</html>

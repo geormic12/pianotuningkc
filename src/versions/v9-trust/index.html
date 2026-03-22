@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Piano Tuning KC — Kansas City's Most Trusted Piano Tuner</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    .version-bar {
+      position: fixed; top: 0; left: 0; right: 0;
+      background: #111; color: #888; font-size: 0.7rem;
+      padding: 0.4rem 1rem; display: flex; gap: 1rem; z-index: 9999;
+      font-family: sans-serif;
+    }
+    .version-bar a { color: #888; text-decoration: none; }
+    .version-bar a:hover { color: #ccc; }
+
+    body {
+      padding-top: 28px;
+      background: #FFFFFF;
+      color: #1A1A2E;
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* Trust / As Featured On bar */
+    .trust-bar {
+      background: #F8F9FA;
+      border-bottom: 1px solid #E9ECEF;
+      padding: 1.2rem 2rem;
+      text-align: center;
+    }
+
+    .trust-bar-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #999;
+      margin-bottom: 0.8rem;
+    }
+
+    .trust-logos {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .trust-logos img {
+      height: 30px;
+      object-fit: contain;
+      filter: grayscale(100%);
+      opacity: 0.5;
+      transition: all 0.3s ease;
+    }
+
+    .trust-logos img:hover {
+      filter: grayscale(0);
+      opacity: 1;
+    }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 5rem 2rem 4rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: #E8F4FD;
+      color: #1B6B93;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.4rem 1.2rem;
+      border-radius: 50px;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.02em;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+      color: #1A1A2E;
+    }
+
+    .hero h1 span {
+      color: #1B6B93;
+    }
+
+    .hero-sub {
+      font-size: 1.15rem;
+      color: #666;
+      max-width: 550px;
+      margin: 0 auto 2rem;
+      line-height: 1.7;
+    }
+
+    .hero-cta {
+      display: inline-block;
+      background: #1B6B93;
+      color: white;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 1rem 2.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+
+    .hero-cta:hover {
+      background: #155A7A;
+      transform: translateY(-1px);
+    }
+
+    .hero-phone {
+      display: block;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: #888;
+    }
+
+    .hero-phone a {
+      color: #1B6B93;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* Testimonials */
+    .testimonials {
+      background: #F8F9FA;
+      padding: 4rem 2rem;
+    }
+
+    .section-label {
+      text-align: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #999;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 2.5rem;
+      color: #1A1A2E;
+    }
+
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .testimonial-card {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+      position: relative;
+    }
+
+    .testimonial-stars {
+      color: #F5A623;
+      font-size: 0.9rem;
+      margin-bottom: 0.8rem;
+      letter-spacing: 0.1em;
+    }
+
+    .testimonial-text {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: #444;
+      font-style: italic;
+      margin-bottom: 1rem;
+    }
+
+    .testimonial-attr {
+      font-size: 0.8rem;
+      color: #AAA;
+      font-style: italic;
+    }
+
+    .example-note {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.75rem;
+      color: #CCC;
+      font-style: italic;
+    }
+
+    /* Stats */
+    .stats {
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      max-width: 750px;
+      margin: 0 auto;
+    }
+
+    .stat-item {
+      padding: 1rem;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: #1B6B93;
+      line-height: 1.2;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: #888;
+      margin-top: 0.3rem;
+      font-weight: 500;
+    }
+
+    /* Jake section */
+    .jake-section {
+      background: #F8F9FA;
+      padding: 4rem 2rem;
+    }
+
+    .jake-content {
+      display: flex;
+      gap: 3rem;
+      align-items: center;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .jake-photo {
+      width: 280px;
+      height: 340px;
+      object-fit: cover;
+      border-radius: 12px;
+      flex-shrink: 0;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    }
+
+    .jake-text h2 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+
+    .jake-text p {
+      color: #555;
+      margin-bottom: 1rem;
+      line-height: 1.8;
+    }
+
+    .credentials {
+      list-style: none;
+      margin-top: 1.5rem;
+    }
+
+    .credentials li {
+      padding: 0.4rem 0;
+      font-size: 0.9rem;
+      color: #555;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .credentials li::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: #1B6B93;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* Services */
+    .services-section {
+      padding: 4rem 2rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .service-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #F8F9FA;
+      border-radius: 12px;
+      padding: 1.8rem 2rem;
+      margin-bottom: 1rem;
+      border: 1px solid #E9ECEF;
+    }
+
+    .service-card-name {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .service-card-detail {
+      font-size: 0.85rem;
+      color: #888;
+    }
+
+    .service-card-price {
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: #1B6B93;
+    }
+
+    /* Bottom CTA */
+    .bottom-cta {
+      background: #1B6B93;
+      color: white;
+      text-align: center;
+      padding: 5rem 2rem;
+    }
+
+    .bottom-cta h2 {
+      font-size: 2.2rem;
+      font-weight: 900;
+      margin-bottom: 0.8rem;
+    }
+
+    .bottom-cta p {
+      font-size: 1.05rem;
+      opacity: 0.85;
+      margin-bottom: 2rem;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .bottom-cta .cta-btn {
+      display: inline-block;
+      background: white;
+      color: #1B6B93;
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      font-size: 1.05rem;
+      padding: 1rem 2.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: transform 0.15s ease;
+    }
+
+    .bottom-cta .cta-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .bottom-cta .cta-phone {
+      display: block;
+      margin-top: 1.2rem;
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+
+    .bottom-cta .cta-phone a {
+      color: white;
+      text-decoration: none;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.8rem;
+      color: #BBB;
+    }
+
+    footer a {
+      color: #888;
+      text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2rem; }
+      .testimonial-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: 1fr; gap: 1rem; }
+      .jake-content { flex-direction: column; text-align: center; }
+      .jake-photo { width: 200px; height: 250px; }
+      .trust-logos { gap: 1.5rem; }
+      .trust-logos img { height: 22px; }
+      .bottom-cta h2 { font-size: 1.6rem; }
+      .service-card { flex-direction: column; text-align: center; gap: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="version-bar">
+  <a href="../">All Versions</a>
+  <a href="../v1-zen/">V1</a> <a href="../v2-letter/">V2</a> <a href="../v3-bigbutton/">V3</a>
+  <a href="../v4-musician/">V4</a> <a href="../v5-onebook/">V5</a> <a href="../v6-earthy/">V6</a>
+  <a href="../v7-concert/">V7</a> <a href="../v8-neighbor/">V8</a> <a href="../v9-trust/">V9</a>
+  <a href="../v10-keys/">V10</a>
+</nav>
+
+<div class="trust-bar">
+  <div class="trust-bar-label">As Featured On</div>
+  <div class="trust-logos">
+    <img src="../../images/logo-yahoo.jpg" alt="Yahoo">
+    <img src="../../images/logo-the-pitch.png" alt="The Pitch">
+    <img src="../../images/logo-the-voice.jpg" alt="NBC's The Voice">
+    <img src="../../images/logo-kshb41.png" alt="KSHB 41">
+    <img src="../../images/logo-sofar.png" alt="Sofar Sounds">
+  </div>
+</div>
+
+<section class="hero">
+  <span class="hero-badge">Trusted by Kansas City Piano Owners</span>
+  <h1>Kansas City's Most <span>Trusted</span> Piano Tuner</h1>
+  <p class="hero-sub">Professional piano tuning by Jake Wells — musician, NBC Voice alum, and dedicated craftsman with over a decade of experience.</p>
+  <a href="https://pianotuningkc.as.me/" class="hero-cta">Book Your Tuning Today</a>
+  <span class="hero-phone">or call <a href="tel:9137258124">(913) 725-8124</a></span>
+</section>
+
+<section class="testimonials">
+  <div class="section-label">What Piano Owners Say</div>
+  <h2 class="section-title">Real Results, Happy Pianos</h2>
+  <div class="testimonial-grid">
+    <div class="testimonial-card">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"Jake tuned our 1920s Steinway and it sounds better than the day we bought it. His ear is incredible."</p>
+      <div class="testimonial-attr">— Example Review</div>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"So easy to book, so friendly, and our piano has never sounded better. We'll never use anyone else."</p>
+      <div class="testimonial-attr">— Example Review</div>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"We've had our piano for 30 years and Jake is the best tuner we've ever had. Professional, kind, and talented."</p>
+      <div class="testimonial-attr">— Example Review</div>
+    </div>
+  </div>
+  <p class="example-note">Example testimonials — placeholder copy for design review</p>
+</section>
+
+<section class="stats">
+  <div class="stats-grid">
+    <div class="stat-item">
+      <div class="stat-number">10+</div>
+      <div class="stat-label">Years Experience</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">NBC</div>
+      <div class="stat-label">The Voice Alum, Season 14</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">100s</div>
+      <div class="stat-label">Pianos Tuned in KC</div>
+    </div>
+  </div>
+</section>
+
+<section class="jake-section">
+  <div class="jake-content">
+    <img src="../../images/jake-portrait.jpg" alt="Jake Wells" class="jake-photo">
+    <div class="jake-text">
+      <div class="section-label">Your Tuner</div>
+      <h2>Jake Wells</h2>
+      <p>I grew up in Pensacola, Florida, and music has been at the center of my life for as long as I can remember. I've never had a formal piano lesson — I've always trusted my ear. When you hire me, you're inviting someone who listens closely and helps your piano find its natural voice again.</p>
+      <ul class="credentials">
+        <li>NBC's The Voice, Season 14 — Chair turn from Adam Levine</li>
+        <li>Music Composition, University of Northern Colorado</li>
+        <li>10+ years of piano tuning experience</li>
+        <li>Featured on Yahoo, KSHB 41, The Pitch, Sofar Sounds</li>
+        <li>Serving the greater Kansas City metro area</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="services-section">
+  <div class="section-label">Services</div>
+  <h2 class="section-title">Simple, Transparent Pricing</h2>
+  <div class="service-card">
+    <div>
+      <div class="service-card-name">Basic Tuning</div>
+      <div class="service-card-detail">Approximately 2 hours</div>
+    </div>
+    <div class="service-card-price">$155</div>
+  </div>
+  <div class="service-card">
+    <div>
+      <div class="service-card-name">Standard Service Call</div>
+      <div class="service-card-detail">Approximately 3 hours &middot; Tuning + adjustments</div>
+    </div>
+    <div class="service-card-price">$250</div>
+  </div>
+</section>
+
+<section class="bottom-cta">
+  <h2>Join Hundreds of Happy Piano Owners</h2>
+  <p>Book your tuning today and hear the difference a trained musical ear makes.</p>
+  <a href="https://pianotuningkc.as.me/" class="cta-btn">Book Your Tuning</a>
+  <div class="cta-phone"><a href="tel:9137258124">(913) 725-8124</a></div>
+</section>
+
+<footer>
+  <p>Piano Tuning KC &middot; Jake Wells &middot; <a href="mailto:Jake@pianotuningkc.com">Jake@pianotuningkc.com</a></p>
+</footer>
+
+</body>
+</html>

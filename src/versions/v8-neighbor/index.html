@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Piano Tuning KC — Jake Wells, Your KC Piano Tuner</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    .version-bar {
+      position: fixed; top: 0; left: 0; right: 0;
+      background: #111; color: #888; font-size: 0.7rem;
+      padding: 0.4rem 1rem; display: flex; gap: 1rem; z-index: 9999;
+      font-family: sans-serif;
+    }
+    .version-bar a { color: #888; text-decoration: none; }
+    .version-bar a:hover { color: #ccc; }
+
+    body {
+      padding-top: 28px;
+      background: #FDF9F4;
+      color: #2D3436;
+      font-family: 'Nunito', 'Segoe UI', sans-serif;
+      font-size: 17px;
+      line-height: 1.6;
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, #4A90A4 0%, #3A7A94 100%);
+      color: white;
+      padding: 4rem 2rem 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0; right: 0;
+      height: 40px;
+      background: #FDF9F4;
+      border-radius: 50% 50% 0 0;
+    }
+
+    .hero-wave {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 900;
+      margin-bottom: 0.3rem;
+      line-height: 1.2;
+    }
+
+    .hero-sub {
+      font-size: 1.25rem;
+      font-weight: 400;
+      opacity: 0.92;
+      margin-bottom: 1rem;
+    }
+
+    .hero-tagline {
+      font-size: 1.1rem;
+      font-weight: 600;
+      background: rgba(255,255,255,0.18);
+      display: inline-block;
+      padding: 0.5rem 1.5rem;
+      border-radius: 50px;
+      margin-top: 0.5rem;
+    }
+
+    /* Phone banner */
+    .phone-banner {
+      background: #E8734A;
+      color: white;
+      text-align: center;
+      padding: 1.2rem 1rem;
+    }
+
+    .phone-banner a {
+      color: white;
+      text-decoration: none;
+      font-size: 2rem;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+    }
+
+    .phone-banner .phone-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      display: block;
+      margin-bottom: 0.2rem;
+      opacity: 0.9;
+    }
+
+    /* Main content */
+    .content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    /* Jake intro */
+    .jake-intro {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      background: white;
+      border-radius: 20px;
+      padding: 2rem;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    }
+
+    .jake-photo {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 4px solid #4A90A4;
+    }
+
+    .jake-info h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #2D3436;
+      margin-bottom: 0.3rem;
+    }
+
+    .jake-info .voice-badge {
+      display: inline-block;
+      background: #E8734A;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.25rem 0.8rem;
+      border-radius: 20px;
+      margin-bottom: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .jake-info p {
+      font-size: 1rem;
+      color: #555;
+      line-height: 1.7;
+    }
+
+    /* Action cards */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    }
+
+    .card-icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .card h3 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      margin-bottom: 0.4rem;
+      color: #2D3436;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    .card--call { border-top: 4px solid #E8734A; }
+    .card--book { border-top: 4px solid #4A90A4; }
+    .card--learn { border-top: 4px solid #5BB88B; }
+
+    /* Services */
+    .services {
+      background: white;
+      border-radius: 20px;
+      padding: 2rem;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    }
+
+    .services h2 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #4A90A4;
+    }
+
+    .service-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      border-bottom: 2px dashed #EEE;
+    }
+
+    .service-row:last-child { border-bottom: none; }
+
+    .service-name {
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .service-details {
+      font-size: 0.9rem;
+      color: #888;
+    }
+
+    .service-price {
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: #E8734A;
+    }
+
+    /* Trust section */
+    .trust {
+      background: #4A90A4;
+      color: white;
+      border-radius: 20px;
+      padding: 2.5rem 2rem;
+      margin-bottom: 2.5rem;
+      text-align: center;
+    }
+
+    .trust h2 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+    }
+
+    .trust-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.8rem;
+      text-align: left;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .trust-list li {
+      font-size: 0.95rem;
+      padding: 0.5rem 0;
+      padding-left: 1.8rem;
+      position: relative;
+    }
+
+    .trust-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      font-weight: 900;
+      color: #FFD166;
+    }
+
+    /* Areas */
+    .areas {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      padding: 1.5rem;
+    }
+
+    .areas h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #4A90A4;
+      margin-bottom: 0.5rem;
+    }
+
+    .areas p {
+      color: #888;
+      font-size: 0.95rem;
+    }
+
+    /* CTA */
+    .bottom-cta {
+      background: #E8734A;
+      color: white;
+      text-align: center;
+      padding: 3rem 2rem;
+      border-radius: 20px;
+      margin-bottom: 2rem;
+    }
+
+    .bottom-cta h2 {
+      font-size: 1.8rem;
+      font-weight: 900;
+      margin-bottom: 0.5rem;
+    }
+
+    .bottom-cta p {
+      font-size: 1.05rem;
+      opacity: 0.9;
+      margin-bottom: 1.5rem;
+    }
+
+    .bottom-cta .btn {
+      display: inline-block;
+      background: white;
+      color: #E8734A;
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 800;
+      padding: 0.9rem 2.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: transform 0.2s ease;
+    }
+
+    .bottom-cta .btn:hover {
+      transform: scale(1.05);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: #AAA;
+      font-size: 0.85rem;
+    }
+
+    footer a {
+      color: #4A90A4;
+      text-decoration: none;
+    }
+
+    @media (max-width: 700px) {
+      .hero h1 { font-size: 2rem; }
+      .hero-wave { font-size: 2.2rem; }
+      .jake-intro { flex-direction: column; text-align: center; }
+      .jake-photo { width: 140px; height: 140px; }
+      .cards { grid-template-columns: 1fr; }
+      .trust-list { grid-template-columns: 1fr; }
+      .phone-banner a { font-size: 1.5rem; }
+      .bottom-cta h2 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="version-bar">
+  <a href="../">All Versions</a>
+  <a href="../v1-zen/">V1</a> <a href="../v2-letter/">V2</a> <a href="../v3-bigbutton/">V3</a>
+  <a href="../v4-musician/">V4</a> <a href="../v5-onebook/">V5</a> <a href="../v6-earthy/">V6</a>
+  <a href="../v7-concert/">V7</a> <a href="../v8-neighbor/">V8</a> <a href="../v9-trust/">V9</a>
+  <a href="../v10-keys/">V10</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-wave">👋</div>
+  <h1>Hey, Kansas City!</h1>
+  <p class="hero-sub">Need your piano tuned? Jake's got you.</p>
+  <span class="hero-tagline">🎹 Your friendly neighborhood piano tuner</span>
+</section>
+
+<div class="phone-banner">
+  <span class="phone-label">Call or text Jake anytime</span>
+  <a href="tel:9137258124">(913) 725-8124</a>
+</div>
+
+<div class="content">
+
+  <div class="jake-intro">
+    <img src="../../images/jake-portrait.jpg" alt="Jake Wells smiling" class="jake-photo">
+    <div class="jake-info">
+      <h2>Meet Jake Wells</h2>
+      <span class="voice-badge">🎤 NBC's The Voice Alum</span>
+      <p>I grew up around music my whole life — started playing piano at 11, studied music composition in college, and even had a chair turn from Adam Levine on The Voice. These days I spend my time making Kansas City pianos sound their best. I treat every piano like it has its own personality, because it does.</p>
+    </div>
+  </div>
+
+  <div class="cards">
+    <a href="tel:9137258124" class="card card--call">
+      <div class="card-icon">📞</div>
+      <h3>Call Jake</h3>
+      <p>(913) 725-8124</p>
+    </a>
+    <a href="https://pianotuningkc.as.me/" class="card card--book">
+      <div class="card-icon">📅</div>
+      <h3>Book Online</h3>
+      <p>Pick a time that works</p>
+    </a>
+    <a href="mailto:Jake@pianotuningkc.com" class="card card--learn">
+      <div class="card-icon">✉️</div>
+      <h3>Email Jake</h3>
+      <p>Jake@pianotuningkc.com</p>
+    </a>
+  </div>
+
+  <div class="services">
+    <h2>Simple, Honest Pricing</h2>
+    <div class="service-row">
+      <div>
+        <div class="service-name">Basic Tuning</div>
+        <div class="service-details">About 2 hours &middot; Get your piano sounding great</div>
+      </div>
+      <div class="service-price">$155</div>
+    </div>
+    <div class="service-row">
+      <div>
+        <div class="service-name">Standard Service Call</div>
+        <div class="service-details">About 3 hours &middot; Tuning + adjustments &amp; minor repairs</div>
+      </div>
+      <div class="service-price">$250</div>
+    </div>
+  </div>
+
+  <div class="trust">
+    <h2>Why Your Neighbors Trust Jake 🏠</h2>
+    <ul class="trust-list">
+      <li>Over a decade of tuning experience</li>
+      <li>NBC's The Voice alumni (Season 14)</li>
+      <li>Studied music composition at UNC</li>
+      <li>Featured on Yahoo, KSHB 41, The Pitch</li>
+      <li>Transparent, upfront pricing</li>
+      <li>Easy online booking</li>
+      <li>Treats every piano with care</li>
+      <li>Born musician, trained ear</li>
+    </ul>
+  </div>
+
+  <div class="areas">
+    <h3>📍 Serving the KC Metro</h3>
+    <p>Kansas City &middot; Overland Park &middot; Olathe &middot; Lee's Summit &middot; Shawnee &middot; Lenexa &middot; Prairie Village &middot; and beyond</p>
+  </div>
+
+  <div class="bottom-cta">
+    <h2>Ready to make your piano sing? 🎵</h2>
+    <p>Book online in 60 seconds or just give Jake a call.</p>
+    <a href="https://pianotuningkc.as.me/" class="btn">Book My Tuning</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>Piano Tuning KC &middot; Jake Wells &middot; <a href="tel:9137258124">(913) 725-8124</a> &middot; <a href="mailto:Jake@pianotuningkc.com">Jake@pianotuningkc.com</a></p>
+</footer>
+
+</body>
+</html>

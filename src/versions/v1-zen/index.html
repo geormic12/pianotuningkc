@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jake Wells — Piano Tuning in Kansas City</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    .version-bar {
+      position: fixed; top: 0; left: 0; right: 0;
+      background: #111; color: #888; font-size: 0.7rem;
+      padding: 0.4rem 1rem; display: flex; gap: 1rem;
+      z-index: 9999; font-family: sans-serif;
+    }
+    .version-bar a { color: #888; text-decoration: none; }
+    .version-bar a:hover { color: #ccc; }
+    .version-bar a[href="../v1-zen/"] { color: #fff; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      font-weight: 200;
+      background: #fff;
+      color: #222;
+      padding-top: 28px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .hero h1 {
+      font-size: 6rem;
+      font-weight: 200;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      margin-bottom: 1.5rem;
+      color: #111;
+    }
+
+    .hero .subtitle {
+      font-size: 1.4rem;
+      font-weight: 300;
+      color: #777;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 4rem;
+    }
+
+    .hero .cta {
+      display: inline-block;
+      padding: 1.2rem 3.5rem;
+      border: 1px solid #222;
+      color: #222;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .hero .cta:hover {
+      background: #222;
+      color: #fff;
+    }
+
+    .about {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 8rem 2rem 6rem;
+      text-align: center;
+    }
+
+    .about img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-bottom: 3rem;
+      filter: grayscale(20%);
+    }
+
+    .about p {
+      font-size: 1.15rem;
+      font-weight: 300;
+      line-height: 1.9;
+      color: #555;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 6rem 2rem 4rem;
+    }
+
+    .footer a {
+      color: #bbb;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+    }
+
+    .footer a:hover { color: #888; }
+
+    .footer .divider {
+      display: inline-block;
+      margin: 0 1.5rem;
+      color: #ddd;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 3.2rem; }
+      .hero .subtitle { font-size: 1rem; margin-bottom: 3rem; }
+      .about { padding: 5rem 1.5rem 4rem; }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 2.4rem; }
+      .hero .cta { padding: 1rem 2.5rem; font-size: 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="version-bar">
+  <a href="../">All Versions</a>
+  <a href="../v1-zen/">V1</a> <a href="../v2-letter/">V2</a> <a href="../v3-bigbutton/">V3</a>
+  <a href="../v4-musician/">V4</a> <a href="../v5-onebook/">V5</a> <a href="../v6-earthy/">V6</a>
+  <a href="../v7-concert/">V7</a> <a href="../v8-neighbor/">V8</a> <a href="../v9-trust/">V9</a>
+  <a href="../v10-keys/">V10</a>
+</nav>
+
+<section class="hero">
+  <h1>Jake Wells</h1>
+  <p class="subtitle">Piano Tuning in Kansas City</p>
+  <a href="https://pianotuningkc.as.me/" class="cta">Book a Tuning</a>
+</section>
+
+<section class="about">
+  <img src="../../images/jake-portrait.jpg" alt="Jake Wells, piano tuner">
+  <p>
+    Jake Wells is a professional piano tuner serving the Kansas City metro area.
+    A classically trained musician and alumnus of NBC's The Voice (Season 14, with a
+    chair turn from Adam Levine), Jake brings a musician's ear and meticulous care
+    to every instrument he touches. Whether it's a beloved family upright or a
+    concert grand, your piano is in good hands.
+  </p>
+</section>
+
+<footer class="footer">
+  <a href="tel:9137258124">(913) 725-8124</a>
+  <span class="divider">·</span>
+  <a href="mailto:Jake@pianotuningkc.com">Jake@pianotuningkc.com</a>
+</footer>
+
+</body>
+</html>
