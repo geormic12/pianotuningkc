@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Piano Tuning KC — Book Instantly</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --warm-bg: #FAF7F2;
+      --card-bg: #FFFFFF;
+      --text: #2c2419;
+      --text-muted: #8a7e72;
+      --accent: #2E7D5B;
+      --accent-hover: #256B4D;
+      --accent-light: #E8F5EE;
+      --border: #E8E2D9;
+      --gold: #C9A96E;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--warm-bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding-top: 28px;
+    }
+
+    /* Version bar */
+    .version-bar {
+      position: fixed; top: 0; left: 0; right: 0;
+      background: #111; color: #888; font-size: 0.7rem;
+      padding: 0.4rem 1rem; display: flex; gap: 1rem; z-index: 9999;
+    }
+    .version-bar a { color: #888; text-decoration: none; }
+    .version-bar a:hover, .version-bar a.active { color: #fff; }
+
+    /* Main layout */
+    .page {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      min-height: calc(100vh - 28px);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header — tiny, unobtrusive */
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .header-photo {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--border);
+    }
+
+    .header-info h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 400;
+      line-height: 1.2;
+    }
+
+    .header-info p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* Booking card — THE MAIN EVENT */
+    .book-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 2rem 1.75rem;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+      border: 1px solid var(--border);
+    }
+
+    .book-card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 400;
+      line-height: 1.3;
+      margin-bottom: 0.5rem;
+    }
+
+    .next-available {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1.75rem;
+      font-size: 0.9rem;
+      color: var(--accent);
+    }
+
+    .next-available .dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* Service selector */
+    .service-options {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .service-option {
+      flex: 1;
+      padding: 0.85rem 0.75rem;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+      background: var(--card-bg);
+    }
+
+    .service-option.selected {
+      border-color: var(--accent);
+      background: var(--accent-light);
+    }
+
+    .service-option:hover {
+      border-color: var(--accent);
+    }
+
+    .service-name {
+      font-weight: 600;
+      font-size: 0.85rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .service-detail {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .service-price {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-top: 0.3rem;
+    }
+
+    /* Phone input */
+    .input-group {
+      margin-bottom: 0.75rem;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-bottom: 0.4rem;
+      color: var(--text);
+    }
+
+    .input-group .optional {
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 0.9rem 1rem;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: border-color 0.2s;
+      background: var(--card-bg);
+      color: var(--text);
+    }
+
+    .input-group input:focus {
+      border-color: var(--accent);
+    }
+
+    .input-group input::placeholder {
+      color: #ccc;
+    }
+
+    .phone-input {
+      font-size: 1.3rem !important;
+      letter-spacing: 0.05em;
+      font-weight: 500;
+    }
+
+    /* Book button */
+    .book-btn {
+      width: 100%;
+      padding: 1rem;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      margin-top: 0.5rem;
+    }
+
+    .book-btn:hover {
+      background: var(--accent-hover);
+    }
+
+    .book-btn:active {
+      transform: scale(0.98);
+    }
+
+    .book-note {
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.75rem;
+      line-height: 1.5;
+    }
+
+    /* Success state (hidden by default) */
+    .success-state {
+      display: none;
+      text-align: center;
+      padding: 2rem 0;
+    }
+
+    .success-state.show {
+      display: block;
+    }
+
+    .success-check {
+      width: 64px;
+      height: 64px;
+      background: var(--accent-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.25rem;
+      font-size: 2rem;
+    }
+
+    .success-state h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+    }
+
+    .success-state p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    /* Booking form (hidden on success) */
+    .booking-form.hide {
+      display: none;
+    }
+
+    /* Info section below */
+    .info-section {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      flex-grow: 1;
+    }
+
+    .info-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.6rem 0;
+    }
+
+    .info-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: var(--accent-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .info-text {
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+
+    .info-text strong {
+      font-weight: 600;
+    }
+
+    .info-text a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 2rem;
+      text-align: center;
+      padding: 1rem 0;
+    }
+
+    .footer-photo {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 0.75rem;
+      border: 2px solid var(--border);
+    }
+
+    .footer p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .footer .voice-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.6rem;
+      background: var(--gold);
+      color: white;
+      border-radius: 50px;
+      margin-top: 0.5rem;
+      font-weight: 500;
+    }
+
+    /* Wireframe note */
+    .wireframe-note {
+      background: #FFF3CD;
+      border: 1px solid #FFE69C;
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.75rem;
+      color: #856404;
+      line-height: 1.5;
+    }
+
+    .wireframe-note strong {
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+  </style>
+</head>
+<body>
+  <nav class="version-bar">
+    <a href="../">All Versions</a>
+    <a href="../v1-zen/">V1</a> <a href="../v2-letter/">V2</a> <a href="../v3-bigbutton/">V3</a>
+    <a href="../v4-musician/">V4</a> <a href="../v5-onebook/">V5</a> <a href="../v6-earthy/">V6</a>
+    <a href="../v7-concert/">V7</a> <a href="../v8-neighbor/">V8</a> <a href="../v9-trust/">V9</a>
+    <a href="../v10-keys/">V10</a> <a href="../v11-instant/" class="active" style="color:#fff;">V11</a>
+  </nav>
+
+  <div class="page">
+    <!-- Header -->
+    <div class="header">
+      <img src="../../images/jake-portrait.jpg" alt="Jake Wells" class="header-photo">
+      <div class="header-info">
+        <h1>Piano Tuning KC</h1>
+        <p>Jake Wells &middot; Kansas City</p>
+      </div>
+    </div>
+
+    <!-- Wireframe note -->
+    <div class="wireframe-note">
+      <strong>Wireframe / Concept</strong>
+      This is a UI concept — no backend yet. Demonstrates the "instant book" flow:
+      phone number → book → Jake reaches out. Could be built with a simple form-to-SMS service.
+    </div>
+
+    <!-- Booking Card -->
+    <div class="book-card">
+      <div class="booking-form" id="bookingForm">
+        <h2>Book Your Tuning</h2>
+        <div class="next-available">
+          <span class="dot"></span>
+          Next available: <strong>Tomorrow, 10:00 AM</strong>
+        </div>
+
+        <!-- Service selection -->
+        <div class="service-options">
+          <div class="service-option selected" onclick="selectService(this)">
+            <div class="service-name">Basic Tune</div>
+            <div class="service-detail">2 hours</div>
+            <div class="service-price">$155</div>
+          </div>
+          <div class="service-option" onclick="selectService(this)">
+            <div class="service-name">Full Service</div>
+            <div class="service-detail">3 hours</div>
+            <div class="service-price">$250</div>
+          </div>
+        </div>
+
+        <!-- Phone number input -->
+        <div class="input-group">
+          <label>Your phone number</label>
+          <input type="tel" class="phone-input" placeholder="(555) 123-4567" id="phoneInput"
+                 oninput="formatPhone(this)" maxlength="14">
+        </div>
+
+        <!-- Optional email -->
+        <div class="input-group">
+          <label>Email <span class="optional">(optional)</span></label>
+          <input type="email" placeholder="you@email.com" id="emailInput">
+        </div>
+
+        <!-- Book button -->
+        <button class="book-btn" onclick="handleBook()">Book Now</button>
+        <p class="book-note">Jake will text you to confirm within the hour.<br>No charge until the tuning is complete.</p>
+      </div>
+
+      <!-- Success state -->
+      <div class="success-state" id="successState">
+        <div class="success-check">&#10003;</div>
+        <h3>You're booked!</h3>
+        <p>Jake will reach out shortly to confirm your appointment. Keep an eye on your phone.</p>
+      </div>
+    </div>
+
+    <!-- Info below the card -->
+    <div class="info-section">
+      <div class="info-row">
+        <div class="info-icon">&#9742;</div>
+        <div class="info-text">
+          Prefer to call? <a href="tel:9137258124"><strong>(913) 725-8124</strong></a>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon">&#9733;</div>
+        <div class="info-text">
+          <strong>NBC's The Voice alum</strong> &middot; 10+ years tuning pianos
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon">&#9881;</div>
+        <div class="info-text">
+          Serving KC, Overland Park, Olathe, Lee's Summit & beyond
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <img src="../../images/jake-tuning.jpg" alt="Jake tuning a piano" class="footer-photo">
+      <p>"When you hire me, you're inviting someone who listens closely
+         and helps your piano find its natural voice again."</p>
+      <span class="voice-badge">The Voice &middot; Season 14</span>
+    </div>
+  </div>
+
+  <script>
+    function selectService(el) {
+      document.querySelectorAll('.service-option').forEach(o => o.classList.remove('selected'));
+      el.classList.add('selected');
+    }
+
+    function formatPhone(input) {
+      let val = input.value.replace(/\D/g, '');
+      if (val.length > 0) {
+        if (val.length <= 3) val = '(' + val;
+        else if (val.length <= 6) val = '(' + val.slice(0,3) + ') ' + val.slice(3);
+        else val = '(' + val.slice(0,3) + ') ' + val.slice(3,6) + '-' + val.slice(6,10);
+      }
+      input.value = val;
+    }
+
+    function handleBook() {
+      const phone = document.getElementById('phoneInput').value.replace(/\D/g, '');
+      if (phone.length < 10) {
+        document.getElementById('phoneInput').style.borderColor = '#e74c3c';
+        document.getElementById('phoneInput').focus();
+        return;
+      }
+      document.getElementById('bookingForm').classList.add('hide');
+      document.getElementById('successState').classList.add('show');
+    }
+  </script>
+</body>
+</html>
