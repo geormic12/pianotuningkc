@@ -153,6 +153,32 @@
       padding-right: 2rem;
     }
 
+    .date-display {
+      flex: 1;
+      padding: 0.75rem 0.75rem;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      font-size: 1rem;
+      font-family: 'Inter', sans-serif;
+      background: var(--card-bg);
+      color: var(--text);
+      cursor: pointer;
+      transition: border-color 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      user-select: none;
+    }
+
+    .date-display:hover {
+      border-color: var(--accent);
+    }
+
+    .date-arrow {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
     .change-hint {
       font-size: 0.7rem;
       color: var(--text-muted);
@@ -609,7 +635,11 @@
             Next available — tap to change
           </div>
           <div class="datetime-row">
-            <input type="date" id="dateInput">
+            <div class="date-display" id="dateDisplay" onclick="document.getElementById('dateInput').showPicker()">
+              <span id="dateFriendly">Loading...</span>
+              <span class="date-arrow">&#9662;</span>
+            </div>
+            <input type="date" id="dateInput" style="position:absolute;opacity:0;pointer-events:none;" onchange="updateDateDisplay()">
             <select id="timeInput">
               <option value="9:00 AM">9:00 AM</option>
               <option value="10:00 AM" selected>10:00 AM</option>
@@ -742,20 +772,36 @@
   </div>
 
   <script>
-    // Default date to tomorrow
+    const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+    function formatDateFriendly(dateStr) {
+      const d = new Date(dateStr + 'T12:00:00');
+      const dayName = days[d.getDay()];
+      const month = d.getMonth() + 1;
+      const date = d.getDate();
+      return dayName + ', ' + month + '/' + date;
+    }
+
+    function updateDateDisplay() {
+      const val = document.getElementById('dateInput').value;
+      if (val) {
+        document.getElementById('dateFriendly').textContent = formatDateFriendly(val);
+      }
+    }
+
+    // Default date to tomorrow (skip weekends)
     (function() {
       const tomorrow = new Date();
       tomorrow.setDate(tomorrow.getDate() + 1);
-      // Skip weekends — if Saturday, go to Monday; if Sunday, go to Monday
       const day = tomorrow.getDay();
       if (day === 0) tomorrow.setDate(tomorrow.getDate() + 1);
       if (day === 6) tomorrow.setDate(tomorrow.getDate() + 2);
       const dateStr = tomorrow.toISOString().split('T')[0];
       const dateInput = document.getElementById('dateInput');
       dateInput.value = dateStr;
-      // Set min to today so they can't pick the past
       const today = new Date().toISOString().split('T')[0];
       dateInput.min = today;
+      updateDateDisplay();
     })();
 
     function selectService(el) {
