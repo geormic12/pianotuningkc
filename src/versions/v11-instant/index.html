@@ -94,15 +94,20 @@
     }
 
     .next-available {
+      margin-bottom: 1.5rem;
+    }
+
+    .next-available-label {
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      margin-bottom: 1.75rem;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       color: var(--accent);
+      margin-bottom: 0.5rem;
+      font-weight: 500;
     }
 
-    .next-available .dot {
+    .next-available-label .dot {
       width: 8px;
       height: 8px;
       background: var(--accent);
@@ -113,6 +118,45 @@
     @keyframes pulse {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.4; }
+    }
+
+    .datetime-row {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .datetime-row input,
+    .datetime-row select {
+      flex: 1;
+      padding: 0.75rem 0.75rem;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      font-size: 1rem;
+      font-family: 'Inter', sans-serif;
+      background: var(--card-bg);
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s;
+      cursor: pointer;
+      -webkit-appearance: none;
+    }
+
+    .datetime-row input:focus,
+    .datetime-row select:focus {
+      border-color: var(--accent);
+    }
+
+    .datetime-row select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a7e72' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.75rem center;
+      padding-right: 2rem;
+    }
+
+    .change-hint {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 0.35rem;
     }
 
     /* Service selector */
@@ -560,8 +604,24 @@
       <div class="booking-form" id="bookingForm">
         <h2>Book Your Tuning</h2>
         <div class="next-available">
-          <span class="dot"></span>
-          Next available: <strong>Tomorrow, 10:00 AM</strong>
+          <div class="next-available-label">
+            <span class="dot"></span>
+            Next available — tap to change
+          </div>
+          <div class="datetime-row">
+            <input type="date" id="dateInput">
+            <select id="timeInput">
+              <option value="9:00 AM">9:00 AM</option>
+              <option value="10:00 AM" selected>10:00 AM</option>
+              <option value="11:00 AM">11:00 AM</option>
+              <option value="12:00 PM">12:00 PM</option>
+              <option value="1:00 PM">1:00 PM</option>
+              <option value="2:00 PM">2:00 PM</option>
+              <option value="3:00 PM">3:00 PM</option>
+              <option value="4:00 PM">4:00 PM</option>
+            </select>
+          </div>
+          <p class="change-hint">Defaults to the next opening. Pick a different day or time if you'd like.</p>
         </div>
 
         <!-- Service selection -->
@@ -682,6 +742,22 @@
   </div>
 
   <script>
+    // Default date to tomorrow
+    (function() {
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      // Skip weekends — if Saturday, go to Monday; if Sunday, go to Monday
+      const day = tomorrow.getDay();
+      if (day === 0) tomorrow.setDate(tomorrow.getDate() + 1);
+      if (day === 6) tomorrow.setDate(tomorrow.getDate() + 2);
+      const dateStr = tomorrow.toISOString().split('T')[0];
+      const dateInput = document.getElementById('dateInput');
+      dateInput.value = dateStr;
+      // Set min to today so they can't pick the past
+      const today = new Date().toISOString().split('T')[0];
+      dateInput.min = today;
+    })();
+
     function selectService(el) {
       document.querySelectorAll('.service-option').forEach(o => o.classList.remove('selected'));
       el.classList.add('selected');
